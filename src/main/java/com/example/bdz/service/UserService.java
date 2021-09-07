@@ -18,6 +18,8 @@ public class UserService {
     public UserMapper userMapper;
 
     public List<User> getUserList() {
-        return userMapper.getUserList();
+        //参数是一个wrapper，条件构造器
+        //查询所有用户
+        return userMapper.selectList(null);
     }
 }

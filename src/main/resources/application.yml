@@ -1,11 +1,35 @@
+
 spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/zhn?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/bdz?useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
+#  security:
+#    user:
+#      name: user
+#      password: 123456
+  redis:
+    host: 39.99.53.37
 
-#整合mybatis
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.bdz.pojo
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #配置日志
+  global-config:  #配置逻辑删除
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  mapper-locations: classpath*:/mapper/xml/**Mapper.xml
+##整合mybatis
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.example.bdz.pojo
+server:
+  port: 9001
+
+bdz:
+  jwt:
+    header: Authorization
+    expire: 604800 #7天，秒单位
+    secret: ewhdgvkljrhowiwqprueeqqgfvrtehzh
