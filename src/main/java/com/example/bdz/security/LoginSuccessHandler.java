@@ -43,7 +43,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         msg.put("userId",accountUser.getUserId());
         String jwt = jwtUtils.generateToken(msg);
         System.out.println("jwt:"+jwt);
-        redisUtil.set("jwt:"+authentication.getName(),jwt,604800);
+        redisUtil.set("jwt:"+accountUser.getUserId(),jwt,604800);
         httpServletResponse.setHeader(jwtUtils.getHeader(),jwt);
         Result result = Result.success(null);
         outputStream.write(JSONUtil.toJsonStr(result).getBytes("UTF-8"));

@@ -36,6 +36,12 @@ public class GwMenuServiceImpl extends ServiceImpl<GwMenuMapper, GwMenu> impleme
         return convert(menusTree);
     }
 
+    @Override
+    public List<GwMenu> tree() {
+        List<GwMenu> gwMenus=list();
+        return buildTreeMenu(gwMenus);
+    }
+
     private List<GwMenuDto> convert(List<GwMenu> menusTree) {
         List<GwMenuDto> menuDtos=new ArrayList<>();
         for (GwMenu gwMenu : menusTree) {
@@ -44,6 +50,7 @@ public class GwMenuServiceImpl extends ServiceImpl<GwMenuMapper, GwMenu> impleme
             dto.setTitle(gwMenu.getName());
             dto.setName(gwMenu.getPerms());
             dto.setPath(gwMenu.getPath());
+            dto.setType(gwMenu.getType());
             if(gwMenu.getChildren().size()>0){
                 dto.setChildren(convert(gwMenu.getChildren()));
             }

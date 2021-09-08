@@ -17,4 +17,6 @@ import java.util.List;
 public interface GwMenuService extends IService<GwMenu> {
 
     List<GwMenuDto> getNavByUserId(Long userId);
+
+    List<GwMenu> tree();
 }

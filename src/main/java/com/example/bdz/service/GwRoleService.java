@@ -3,6 +3,8 @@ package com.example.bdz.service;
 import com.example.bdz.pojo.GwRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GwRoleService extends IService<GwRole> {
 
+    List<GwRole> listByUserId(Long userId);
 }

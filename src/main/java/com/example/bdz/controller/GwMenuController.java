@@ -2,18 +2,22 @@ package com.example.bdz.controller;
 
 
 import cn.hutool.core.map.MapUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bdz.common.dto.GwMenuDto;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwMenu;
+import com.example.bdz.pojo.GwRoleMenu;
 import com.example.bdz.pojo.GwUser;
 import com.example.bdz.service.GwMenuService;
+import com.example.bdz.service.GwRoleMenuService;
 import com.example.bdz.service.GwUserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -28,13 +32,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/gw/menu")
-public class GwMenuController {
+public class GwMenuController extends BaseController {
     @Autowired
     GwMenuService gwMenuService;
     @Autowired
-    GwUserService gwUserService;
-    @GetMapping("/list")
-    public Result menu(Principal principal){
+    GwRoleMenuService gwRoleMenuService;
+    @ApiOperation("获取当前用户的权限列表接口")
+    @GetMapping("/nav")
+    public Result nav(Principal principal){
         GwUser gwUser=gwUserService.getByUsername(principal.getName());
         //获取权限信息
         String authority=gwUserService.getUserAuthorityInfo(gwUser.getUserId());
@@ -45,5 +50,53 @@ public class GwMenuController {
                         .put("nav",navs)
                         .map());
     }
+    @ApiOperation("根据id获取权限信息接口")
+    @GetMapping("/info/{id}")
+    @PreAuthorize("hasAuthority('gw:menu')")
+    public Result info(@PathVariable("id") Integer id){
+        return Result.success(gwMenuService.getById(id));
+    }
+    @ApiOperation("获取权限列表接口")
+    @GetMapping("/list")
+    @PreAuthorize("hasAuthority('gw:menu')")
+    public Result list(){
+        List<GwMenu> gwMenus=gwMenuService.tree();
+        return Result.success(gwMenus);
+    }
+
+//    @ApiOperation("添加权限接口")
+//    @PostMapping("/save")
+//    @PreAuthorize("hasAuthority('gw:menu:save')")
+//    public Result save(@Validated @RequestBody GwMenu gwMenu){
+//        gwMenuService.save(gwMenu);
+//        return Result.success(gwMenu);
+//    }
+//
+//    @ApiOperation("更新权限接口")
+//    @PostMapping("/update")
+//    @PreAuthorize("hasAuthority('gw:menu:update')")
+//    public Result update(@Validated @RequestBody GwMenu gwMenu){
+//        gwMenuService.updateById(gwMenu);
+//        //清除相关缓存
+//        gwUserService.clearUserAuthorityInfoByMenuId(gwMenu.getId());
+//        return Result.success(gwMenu);
+//    }
+//
+//    @ApiOperation("删除权限接口")
+//    @PostMapping("/delete/{id}")
+//    @PreAuthorize("hasAuthority('gw:menu:delete')")
+//    @Transactional
+//    public Result delete(@PathVariable("id") Integer id){
+//        int count=gwMenuService.count(new QueryWrapper<GwMenu>().eq("parent_id",id));
+//        if(count>0)
+//            return Result.fail("请先删除子菜单");
+//        //清除相关缓存
+//        System.out.println("id:"+id);
+//        gwUserService.clearUserAuthorityInfoByMenuId(id);
+//        //删除相关关联表信息
+//        gwRoleMenuService.remove(new QueryWrapper<GwRoleMenu>().eq("menu_id",id));
+//        gwMenuService.removeById(id);
+//        return Result.success(null);
+//    }
 }
 

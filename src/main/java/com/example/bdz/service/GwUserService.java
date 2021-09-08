@@ -19,6 +19,7 @@ public interface GwUserService extends IService<GwUser> {
     String getUserAuthorityInfo(Long userId);
 
     void clearUserAuthorityInfo(Long userId);
+    void clearUserJwtByUserId(Long userId);
     void clearUserAuthorityInfoByRoleId(Integer roleId);
     void clearUserAuthorityInfoByMenuId(Integer menuId);
 }

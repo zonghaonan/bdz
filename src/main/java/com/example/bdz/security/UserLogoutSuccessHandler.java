@@ -36,16 +36,9 @@ public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
         //System.out.println(authentication);
         String jwt=httpServletRequest.getHeader(jwtUtils.getHeader());
         Claims claim=jwtUtils.getClaimByToken(jwt);
-        if(claim==null){
-            //System.out.println("token异常");
-            throw new JwtException("token异常");
-        }
-        if(jwtUtils.isTokenExpired(claim)){
-            throw new JwtException("token已过期");
-        }
-        if(redisUtil.hasKey("jwt:"+claim.get("username"))){
-            redisUtil.del("jwt:"+claim.get("username"));
-        }
+        //清除缓存
+        redisUtil.del("jwt:"+claim.get("userId"));
+        redisUtil.del("GrantedAuthority:"+claim.get("userId"));
         if(authentication!=null){
             new SecurityContextLogoutHandler().logout(httpServletRequest,httpServletResponse,authentication);
         }

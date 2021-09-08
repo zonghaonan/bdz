@@ -12,8 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.stereotype.Component;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -57,7 +55,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         //System.out.println("异常结束");
         String username= (String) claim.get("username");
         Long userId= (Long) claim.get("userId");
-        if(!redisUtil.hasKey("jwt:"+username)){
+        if(!redisUtil.hasKey("jwt:"+userId)){
             throw new JwtException("token不存在");
         }
         //System.out.println("claim:"+claim.get("userId"));

@@ -44,11 +44,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
     private static final String[] URL_WHITELIST={
             "/login",
             //"/logout",
             "/captcha",
-            "/favicon.ico"
+            "/favicon.ico",
+            "/swagger-ui.html",
+            "/swagger-resources/configuration/ui",
+            "/swagger-resources",
+            "/swagger-resources/configuration/security",
+            "/webjars/**",
+            "/v2/api-docs"
     };
 
     @Override

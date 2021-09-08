@@ -5,7 +5,6 @@ import com.example.bdz.pojo.GwMenu;
 import com.example.bdz.pojo.GwRole;
 import com.example.bdz.pojo.GwUser;
 import com.example.bdz.mapper.GwUserMapper;
-import com.example.bdz.pojo.User;
 import com.example.bdz.service.GwMenuService;
 import com.example.bdz.service.GwRoleService;
 import com.example.bdz.service.GwUserService;
@@ -14,7 +13,6 @@ import com.example.bdz.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,6 +70,11 @@ public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> impleme
     @Override
     public void clearUserAuthorityInfo(Long userId) {
         redisUtil.del("GrantedAuthority:"+userId);
+    }
+
+    @Override
+    public void clearUserJwtByUserId(Long userId) {
+        redisUtil.del("jwt:"+userId);
     }
 
     @Override

@@ -16,5 +16,6 @@ public class GwMenuDto implements Serializable {
     private String name;
     private String title;
     private String path;
+    private Integer type;
     private List<GwMenuDto> children;
 }
