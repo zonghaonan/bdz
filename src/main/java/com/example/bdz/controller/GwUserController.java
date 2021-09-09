@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.bdz.api.user.GwUserControllerApi;
+import com.example.bdz.common.dto.PasswordDto;
 import com.example.bdz.common.lang.Const;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwRole;
@@ -155,10 +156,14 @@ public class GwUserController extends BaseController {
         return Result.success(null);
     }
     @ApiOperation("修改密码接口")
-    @PostMapping("/updatePwd/{userId}/{password}")
-    public Result updatePwd(@PathVariable("userId") Long userId,@PathVariable("password") String password){
-        GwUser gwUser=gwUserService.getById(userId);
-        gwUser.setPassword(passwordEncoder.encode(password));
+    @PostMapping("/updatePwd")
+    public Result updatePwd(@Validated @RequestBody PasswordDto passwordDto,Principal principal){
+        GwUser gwUser=gwUserService.getByUsername(principal.getName());
+        boolean match=passwordEncoder.matches(passwordDto.getCurrentPwd(),gwUser.getPassword());
+        if(!match){
+            return Result.fail("旧密码不正确");
+        }
+        gwUser.setPassword(passwordEncoder.encode(passwordDto.getPwd()));
         gwUserService.updateById(gwUser);
         return Result.success(null);
     }
