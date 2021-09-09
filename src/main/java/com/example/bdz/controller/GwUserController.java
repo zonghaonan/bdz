@@ -103,8 +103,13 @@ public class GwUserController extends BaseController {
     }
     @ApiOperation("更新用户接口")
     @PreAuthorize("hasAuthority('gw:user:update')")
-    @PostMapping("/update")
-    public Result update(@Validated @RequestBody GwUser gwUser){
+    @PostMapping("/update/{userId}")
+    public Result update(@PathVariable("userId") Long userId,@Validated @RequestBody GwUser gwUser){
+        GwUser user = gwUserService.getById(userId);
+        if(!user.getUsername().equals(gwUser.getUsername())){
+            return Result.fail("用户名不能修改");
+        }
+        gwUser.setUserId(userId);
         gwUserService.updateById(gwUser);
         return Result.success(gwUser);
     }
@@ -142,18 +147,18 @@ public class GwUserController extends BaseController {
     }
     @ApiOperation("重置密码接口")
     @PreAuthorize("hasAuthority('gw:user:repass')")
-    @PostMapping("/repass")
-    public Result repass(){
-        GwUser gwUser=gwUserService.getById(ServletRequestUtils.getLongParameter(request,"userId",0));
+    @PostMapping("/repass/{userId}")
+    public Result repass(@PathVariable("userId") Long userId){
+        GwUser gwUser=gwUserService.getById(userId);
         gwUser.setPassword(passwordEncoder.encode(Const.DEFAULT_PASSWORD));
         gwUserService.updateById(gwUser);
         return Result.success(null);
     }
     @ApiOperation("修改密码接口")
-    @PostMapping("/updatePwd")
-    public Result updatePwd(){
-        GwUser gwUser=gwUserService.getById(ServletRequestUtils.getLongParameter(request,"userId",0));
-        gwUser.setPassword(passwordEncoder.encode(ServletRequestUtils.getStringParameter(request,"password","")));
+    @PostMapping("/updatePwd/{userId}/{password}")
+    public Result updatePwd(@PathVariable("userId") Long userId,@PathVariable("password") String password){
+        GwUser gwUser=gwUserService.getById(userId);
+        gwUser.setPassword(passwordEncoder.encode(password));
         gwUserService.updateById(gwUser);
         return Result.success(null);
     }

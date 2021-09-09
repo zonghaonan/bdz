@@ -70,8 +70,9 @@ public class GwRoleController extends BaseController {
     }
     @ApiOperation("更新角色接口")
     @PreAuthorize("hasAuthority('gw:role:update')")
-    @PostMapping("/update")
-    public Result update(@Validated @RequestBody GwRole gwRole){
+    @PostMapping("/update/{id}")
+    public Result update(@PathVariable("id") Integer id,@Validated @RequestBody GwRole gwRole){
+        gwRole.setId(id);
         gwRoleService.updateById(gwRole);
         //更新缓存
         gwUserService.clearUserAuthorityInfoByRoleId(gwRole.getId());
