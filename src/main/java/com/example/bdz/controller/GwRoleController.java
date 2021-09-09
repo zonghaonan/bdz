@@ -74,7 +74,7 @@ public class GwRoleController extends BaseController {
     public Result update(@PathVariable("id") Integer id,@Validated @RequestBody GwRole gwRole){
         gwRole.setId(id);
         gwRoleService.updateById(gwRole);
-        //更新缓存
+        //清除缓存
         gwUserService.clearUserAuthorityInfoByRoleId(gwRole.getId());
         return Result.success(gwRole);
     }
