@@ -20,7 +20,8 @@ import java.util.List;
 @Service
 public class GwRoleServiceImpl extends ServiceImpl<GwRoleMapper, GwRole> implements GwRoleService {
     @Override
-    public List<GwRole> listByUserId(Long userId) {
-        return list(new QueryWrapper<GwRole>().inSql("id","select role_id from gw_user_role where user_id="+userId));
+    public GwRole getByUserId(Long userId) {
+        return getOne(new QueryWrapper<GwRole>().inSql("id","select role_id from gw_user_role where user_id="+userId));
     }
+
 }

@@ -80,6 +80,6 @@ public class GwUser implements Serializable {
     private Date updateTime;
 
     @TableField(exist = false)
-    private List<GwRole> gwRoleList=new ArrayList<>();
+    private GwRole gwRole=new GwRole();
 
 }

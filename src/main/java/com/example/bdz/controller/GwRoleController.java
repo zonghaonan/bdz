@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,7 @@ public class GwRoleController extends BaseController {
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
         GwRole gwRole = gwRoleService.getById(id);
+        Assert.notNull(gwRole,"找不到该角色");
         List<GwRoleMenu> gwRoleMenus=gwRoleMenuService.list(new QueryWrapper<GwRoleMenu>().eq("role_id",id));
         List<Integer> menuIds = gwRoleMenus.stream().map(p -> p.getMenuId()).collect(Collectors.toList());
         gwRole.setMenuIds(menuIds);
@@ -56,9 +58,8 @@ public class GwRoleController extends BaseController {
     @PreAuthorize("hasAuthority('gw:role')")
     @GetMapping("/list")
     public Result list(String name){
-        System.out.println(name);
-        Page<GwRole> gwRolePage=gwRoleService.page(getPage(),new QueryWrapper<GwRole>().like(StrUtil.isNotBlank(name),"name",name));
-        return Result.success(gwRolePage);
+        List<GwRole> gwRoles=gwRoleService.list(new QueryWrapper<GwRole>().like(StrUtil.isNotBlank(name),"name",name));
+        return Result.success(gwRoles);
     }
     @ApiOperation("添加角色接口")
     @PreAuthorize("hasAuthority('gw:role:save')")
@@ -72,6 +73,7 @@ public class GwRoleController extends BaseController {
     @PreAuthorize("hasAuthority('gw:role:update')")
     @PostMapping("/update/{id}")
     public Result update(@PathVariable("id") Integer id,@Validated @RequestBody GwRole gwRole){
+        Assert.notNull(gwRoleService.getById(id),"找不到该角色");
         gwRole.setId(id);
         gwRoleService.updateById(gwRole);
         //清除缓存
@@ -96,6 +98,7 @@ public class GwRoleController extends BaseController {
     @PostMapping("/perm/{roleId}")
     @Transactional
     public Result perm(@PathVariable("roleId") Integer roleId,@RequestBody Integer[] menuIds){
+        Assert.notNull(gwRoleService.getById(roleId),"该角色不存在");
         List<GwRoleMenu> roleMenus=new ArrayList<>();
         for (Integer menuId : menuIds) {
             GwRoleMenu roleMenu=new GwRoleMenu();

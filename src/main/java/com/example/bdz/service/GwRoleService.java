@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface GwRoleService extends IService<GwRole> {
 
-    List<GwRole> listByUserId(Long userId);
+    GwRole getByUserId(Long userId);
 }

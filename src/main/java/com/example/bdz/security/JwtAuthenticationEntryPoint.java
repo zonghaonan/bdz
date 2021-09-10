@@ -1,6 +1,7 @@
 package com.example.bdz.security;
 
 import cn.hutool.json.JSONUtil;
+import com.example.bdz.common.lang.ErrorCode;
 import com.example.bdz.common.lang.Result;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -24,7 +25,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         httpServletResponse.setContentType("application/json;charset=UTF-8");
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         ServletOutputStream outputStream = httpServletResponse.getOutputStream();
-        Result result = Result.fail("请先登录！");
+        Result result = Result.fail(ErrorCode.UNAUTHENTICATED);
         outputStream.write(JSONUtil.toJsonStr(result).getBytes("UTF-8"));
         outputStream.flush();
         outputStream.close();

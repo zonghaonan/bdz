@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,9 @@ public class GwMenuController extends BaseController {
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('gw:menu')")
     public Result info(@PathVariable("id") Integer id){
-        return Result.success(gwMenuService.getById(id));
+        GwMenu gwMenu = gwMenuService.getById(id);
+        Assert.notNull(gwMenu,"找不到该权限");
+        return Result.success(gwMenu);
     }
     @ApiOperation("获取权限列表接口")
     @GetMapping("/list")

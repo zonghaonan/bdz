@@ -1,5 +1,6 @@
 package com.example.bdz.common.exception;
 
+import com.example.bdz.common.lang.ErrorCode;
 import com.example.bdz.common.lang.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,18 +25,21 @@ public class GlobalExceptionHandler {
         BindingResult result=e.getBindingResult();
         ObjectError objectError = result.getAllErrors().stream().findFirst().get();
         log.error("实体校验异常：-----------{}",objectError.getDefaultMessage());
-        return Result.fail(objectError.getDefaultMessage());
+        return Result.fail(ErrorCode.INVALIDPARAM.code(),objectError.getDefaultMessage(),null);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e){
         log.error("Assert异常：-----------{}",e.getMessage());
-        return Result.fail(e.getMessage());
+        return Result.fail(ErrorCode.NOTFOUND.code(),e.getMessage(),null);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = RuntimeException.class)
     public Result handler(RuntimeException e){
         log.error("运行时异常：-----------{}",e.getMessage());
-        return Result.fail(e.getMessage());
+        if(e.getMessage().equals("不允许访问")){
+            return Result.fail(ErrorCode.UNAUTHORISE);
+        }
+        return Result.fail(ErrorCode.SERVER_ERROR);
     }
 }

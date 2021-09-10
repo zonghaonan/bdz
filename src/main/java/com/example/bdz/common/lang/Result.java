@@ -35,4 +35,11 @@ public class Result implements Serializable {
         result.setData(data);
         return result;
     }
+    public static Result fail(ResultCode resultCode){
+        Result result=new Result();
+        result.setCode(resultCode.code());
+        result.setMsg(resultCode.message());
+        result.setData(null);
+        return result;
+    }
 }

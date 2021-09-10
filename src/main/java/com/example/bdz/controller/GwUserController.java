@@ -68,19 +68,19 @@ public class GwUserController extends BaseController {
     public Result getUserList(@PathVariable("userId")Long userId) {
         GwUser gwUser = gwUserService.getById(userId);
         Assert.notNull(gwUser,"找不到该用户");
-        List<GwRole> gwRoles=gwRoleService.listByUserId(userId);
-        gwUser.setGwRoleList(gwRoles);
+        GwRole gwRole=gwRoleService.getByUserId(userId);
+        gwUser.setGwRole(gwRole);
         return Result.success(gwUser);
     }
     @GetMapping("/list")  //查询所有用户
     @PreAuthorize("hasAuthority('gw:user')")
     @ApiOperation("查询用户列表接口")
     public Result getUserList(String username) {
-        Page<GwUser> gwRolePage=gwUserService.page(getPage(),new QueryWrapper<GwUser>().like(StrUtil.isNotBlank(username),"username",username));
-        for (GwUser gwUser : gwRolePage.getRecords()) {
-            gwUser.setGwRoleList(gwRoleService.listByUserId(gwUser.getUserId()));
+        Page<GwUser> gwUserPage=gwUserService.page(getPage(),new QueryWrapper<GwUser>().like(StrUtil.isNotBlank(username),"username",username));
+        for (GwUser gwUser : gwUserPage.getRecords()) {
+            gwUser.setGwRole(gwRoleService.getByUserId(gwUser.getUserId()));
         }
-        return Result.success(gwRolePage);
+        return Result.success(gwUserPage);
     }
     @ApiOperation("添加用户接口")
     @PreAuthorize("hasAuthority('gw:user:save')")
@@ -107,6 +107,7 @@ public class GwUserController extends BaseController {
     @PostMapping("/update/{userId}")
     public Result update(@PathVariable("userId") Long userId,@Validated @RequestBody GwUser gwUser){
         GwUser user = gwUserService.getById(userId);
+        Assert.notNull(user,"该用户不存在");
         if(!user.getUsername().equals(gwUser.getUsername())){
             return Result.fail("用户名不能修改");
         }
@@ -119,6 +120,7 @@ public class GwUserController extends BaseController {
     @PostMapping("/delete/{userId}")
     @Transactional
     public Result delete(@PathVariable("userId") Long userId){
+        Assert.notNull(gwUserService.getById(userId),"该用户不存在");
         //清除缓存
         gwUserService.clearUserAuthorityInfo(userId);
         gwUserService.clearUserJwtByUserId(userId);
@@ -128,20 +130,15 @@ public class GwUserController extends BaseController {
         return Result.success(null);
     }
     @ApiOperation("分配角色接口")
-    @PreAuthorize("hasAuthority('gw:role:perm')")
-    @PostMapping("/permRole/{userId}")
+    @PreAuthorize("hasAuthority('gw:user:perm')")
+    @PostMapping("/perm/{userId}/{roleId}")
     @Transactional
-    public Result permRole(@PathVariable("userId") Long userId,@RequestBody Integer[] roleIds){
-        List<GwUserRole> userRoles=new ArrayList<>();
-        for (Integer roleId : roleIds) {
-            GwUserRole userRole=new GwUserRole();
-            userRole.setUserId(userId);
-            userRole.setRoleId(roleId);
-            userRoles.add(userRole);
-        }
-        //先删除原来的记录，再保存
-        gwUserRoleService.remove(new QueryWrapper<GwUserRole>().eq("user_id",userId));
-        gwUserRoleService.saveBatch(userRoles);
+    public Result perm(@PathVariable("userId") Long userId,@PathVariable("roleId") Integer roleId){
+        Assert.notNull(gwUserService.getById(userId),"该用户不存在");
+        GwUserRole userRole=new GwUserRole();
+        userRole.setUserId(userId);
+        userRole.setRoleId(roleId);
+        gwUserRoleService.saveOrUpdate(userRole,new QueryWrapper<GwUserRole>().eq("user_id",userId));
         //删除缓存
         gwUserService.clearUserAuthorityInfo(userId);
         return Result.success(null);
@@ -151,6 +148,7 @@ public class GwUserController extends BaseController {
     @PostMapping("/repass/{userId}")
     public Result repass(@PathVariable("userId") Long userId){
         GwUser gwUser=gwUserService.getById(userId);
+        Assert.notNull(gwUser,"该用户不存在");
         gwUser.setPassword(passwordEncoder.encode(Const.DEFAULT_PASSWORD));
         gwUserService.updateById(gwUser);
         return Result.success(null);

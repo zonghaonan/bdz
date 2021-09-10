@@ -13,6 +13,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 
@@ -30,13 +33,15 @@ public class GwEquip implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "编号")
-    @TableId(value = "equip_id", type = IdType.ID_WORKER)
+    @TableId(value = "equip_id", type = IdType.ASSIGN_ID)
     private Long equipId;
 
-    @ApiModelProperty(value = "设备名称")
+    @ApiModelProperty(value = "资产名称")
+    @NotBlank(message = "资产名称不能为空")
     private String equipName;
 
     @ApiModelProperty(value = "数量")
+    @NotNull(message = "数量不能为空")
     private Integer count;
 
     @ApiModelProperty(value = "型号")
@@ -48,8 +53,13 @@ public class GwEquip implements Serializable {
     @ApiModelProperty(value = "使用状况")
     private String status;
 
-    @ApiModelProperty(value = "存放地点")
-    private String location;
+    @ApiModelProperty(value = "存放地点id")
+    @NotNull(message = "存放地点不能为空")
+    private Integer areaId;
+
+    @ApiModelProperty(value = "存放地点名")
+    @TableField(exist = false)
+    private String areaName;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
