@@ -50,8 +50,9 @@ public class GwEquip implements Serializable {
     @ApiModelProperty(value = "品牌")
     private String brand;
 
-    @ApiModelProperty(value = "使用状况")
-    private String status;
+    @ApiModelProperty(value = "使用状况(0:正常使用  1:故障)")
+    @NotNull(message = "使用状况不能为空")
+    private Integer status;
 
     @ApiModelProperty(value = "存放区域id")
     @NotNull(message = "存放区域不能为空")

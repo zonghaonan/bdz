@@ -54,7 +54,7 @@ public class GwMenu implements Serializable {
     @NotBlank(message = "菜单授权码不能为空")
     private String perms;
 
-    @ApiModelProperty(value = "菜单类型")
+    @ApiModelProperty(value = "菜单类型（0：一级目录  1：二级目录  2：操作权限）")
     @NotNull(message = "菜单类型不能为空")
     private Integer type;
 
