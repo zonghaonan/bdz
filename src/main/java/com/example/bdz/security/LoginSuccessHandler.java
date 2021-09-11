@@ -3,6 +3,8 @@ package com.example.bdz.security;
 import cn.hutool.json.JSONUtil;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwUser;
+import com.example.bdz.service.GwRoleService;
+import com.example.bdz.service.GwUserService;
 import com.example.bdz.utils.JwtUtils;
 import com.example.bdz.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     JwtUtils jwtUtils;
     @Autowired
     RedisUtil redisUtil;
+    @Autowired
+    GwUserService gwUserService;
+    @Autowired
+    GwRoleService gwRoleService;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         httpServletResponse.setContentType("application/json;charset=UTF-8");
@@ -45,7 +51,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         System.out.println("jwt:"+jwt);
         redisUtil.set("jwt:"+accountUser.getUserId(),jwt,604800);
         httpServletResponse.setHeader(jwtUtils.getHeader(),jwt);
-        Result result = Result.success(null);
+        GwUser gwUser = gwUserService.getByUsername(accountUser.getUsername());
+        System.out.println(gwUser);
+        gwUser.setGwRole(gwRoleService.getByUserId(gwUser.getUserId()));
+        Result result = Result.success(gwUser);
         outputStream.write(JSONUtil.toJsonStr(result).getBytes("UTF-8"));
         outputStream.flush();
         outputStream.close();

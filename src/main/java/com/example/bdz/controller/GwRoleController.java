@@ -82,7 +82,7 @@ public class GwRoleController extends BaseController {
     }
     @ApiOperation("删除角色接口")
     @PreAuthorize("hasAuthority('gw:role:delete')")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Transactional
     public Result delete(@PathVariable("id") Integer id){
         //删除缓存（先删除缓存，不然删除中间表之后会找不到对应的id）

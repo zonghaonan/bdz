@@ -64,6 +64,8 @@ public class GwEquipController extends BaseController {
         gwEquipService.save(gwEquip);
         //更新区域资产数量
         gwAreaService.updateCount(gwEquip.getAreaId(),gwEquip.getCount());
+        GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
+        gwEquip.setAreaName(gwArea.getAreaName());
         return Result.success(gwEquip);
     }
     @ApiOperation("更新资产接口")
@@ -77,11 +79,13 @@ public class GwEquipController extends BaseController {
         //更新区域资产
         gwAreaService.updateCount(preGwEquip,gwEquip);
         gwEquipService.updateById(gwEquip);
+        GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
+        gwEquip.setAreaName(gwArea.getAreaName());
         return Result.success(gwEquip);
     }
     @ApiOperation("删除资产接口")
     @PreAuthorize("hasAuthority('gw:equip:delete')")
-    @PostMapping("/delete/{equipId}")
+    @DeleteMapping("/delete/{equipId}")
     @Transactional
     public Result delete(@PathVariable("equipId") Long equipId){
         GwEquip gwEquip = gwEquipService.getById(equipId);

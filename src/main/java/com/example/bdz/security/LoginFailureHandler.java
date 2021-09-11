@@ -1,6 +1,7 @@
 package com.example.bdz.security;
 
 import cn.hutool.json.JSONUtil;
+import com.example.bdz.common.lang.ErrorCode;
 import com.example.bdz.common.lang.Result;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -26,7 +27,9 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         //System.out.println(e.getMessage());
         Result result =null;
         if(e.getMessage().equals("Bad credentials")){
-            result= Result.fail("用户名或密码错误");
+            result= Result.fail(ErrorCode.ERRORLOGIN);
+        }else if (e.getMessage().equals("验证码错误")){
+            result = Result.fail(ErrorCode.ERRORCAPTCHA);
         }else {
             result = Result.fail(e.getMessage());
         }

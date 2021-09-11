@@ -6,10 +6,12 @@ package com.example.bdz.common.lang;
  * @Version 1.0
  */
 public enum ErrorCode implements ResultCode {
-    INVALIDPARAM(false,10003,"非法参数"),
-    NOTFOUND(false,10004,"找不到内容"),
     UNAUTHENTICATED(false,10001,"此操作需要登陆系统！"),
     UNAUTHORISE(false,10002,"权限不足，无权操作！"),
+    INVALIDPARAM(false,10003,"非法参数"),
+    NOTFOUND(false,10004,"找不到内容"),
+    ERRORLOGIN(false,10005,"用户名或密码错误"),
+    ERRORCAPTCHA(false,10006,"验证码错误"),
     SERVER_ERROR(false,99999,"抱歉，系统繁忙，请稍后重试！");
     //操作是否成功
     boolean success;

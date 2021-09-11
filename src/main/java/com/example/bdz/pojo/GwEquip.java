@@ -53,11 +53,11 @@ public class GwEquip implements Serializable {
     @ApiModelProperty(value = "使用状况")
     private String status;
 
-    @ApiModelProperty(value = "存放地点id")
-    @NotNull(message = "存放地点不能为空")
+    @ApiModelProperty(value = "存放区域id")
+    @NotNull(message = "存放区域不能为空")
     private Integer areaId;
 
-    @ApiModelProperty(value = "存放地点名")
+    @ApiModelProperty(value = "存放区域名")
     @TableField(exist = false)
     private String areaName;
 

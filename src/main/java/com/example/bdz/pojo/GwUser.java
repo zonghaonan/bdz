@@ -57,6 +57,7 @@ public class GwUser implements Serializable {
     private String email;
 
     @ApiModelProperty(value = "手机号")
+    @NotBlank(message = "手机号不能为空")
     private String phone;
 
     @ApiModelProperty(value = "城市")

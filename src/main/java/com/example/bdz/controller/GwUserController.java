@@ -5,7 +5,6 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.bdz.api.user.GwUserControllerApi;
 import com.example.bdz.common.dto.PasswordDto;
 import com.example.bdz.common.lang.Const;
 import com.example.bdz.common.lang.Result;
@@ -100,6 +99,7 @@ public class GwUserController extends BaseController {
         userRole.setUserId(gwUser.getUserId());
         userRole.setRoleId(2);
         gwUserRoleService.save(userRole);
+        gwUser.setGwRole(gwRoleService.getByUserId(gwUser.getUserId()));
         return Result.success(gwUser);
     }
     @ApiOperation("更新用户接口")
@@ -113,11 +113,12 @@ public class GwUserController extends BaseController {
         }
         gwUser.setUserId(userId);
         gwUserService.updateById(gwUser);
+        gwUser.setGwRole(gwRoleService.getByUserId(userId));
         return Result.success(gwUser);
     }
     @ApiOperation("删除用户接口")
     @PreAuthorize("hasAuthority('gw:user:delete')")
-    @PostMapping("/delete/{userId}")
+    @DeleteMapping("/delete/{userId}")
     @Transactional
     public Result delete(@PathVariable("userId") Long userId){
         Assert.notNull(gwUserService.getById(userId),"该用户不存在");
