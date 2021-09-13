@@ -1,6 +1,7 @@
 package com.example.bdz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.bdz.common.lang.Const;
 import com.example.bdz.pojo.GwMenu;
 import com.example.bdz.pojo.GwRole;
 import com.example.bdz.pojo.GwUser;
@@ -10,11 +11,15 @@ import com.example.bdz.service.GwRoleService;
 import com.example.bdz.service.GwUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.utils.RedisUtil;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 /**
  * <p>
@@ -26,7 +31,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> implements GwUserService {
-
     @Autowired
     GwRoleService gwRoleService;
     @Autowired
@@ -62,7 +66,7 @@ public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> impleme
                 String menuPerms = gwMenus.stream().map(m->m.getPerms()).collect(Collectors.joining(","));
                 authority=authority.concat(menuPerms);
             }
-            redisUtil.set("GrantedAuthority:"+userId,authority,60*60);
+            redisUtil.set("GrantedAuthority:"+userId,authority, Const.EXPIRE);
         }
         return authority;
     }
