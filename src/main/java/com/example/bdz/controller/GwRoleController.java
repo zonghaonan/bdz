@@ -44,7 +44,7 @@ public class GwRoleController extends BaseController {
     @Autowired
     GwUserRoleService gwUserRoleService;
     @ApiOperation("根据id获取角色信息接口")
-    @PreAuthorize("hasAuthority('gw:role')")
+    @PreAuthorize("hasAuthority('gw:role:list')")
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
         GwRole gwRole = gwRoleService.getById(id);
@@ -55,7 +55,7 @@ public class GwRoleController extends BaseController {
         return Result.success(gwRole);
     }
     @ApiOperation("获取角色列表接口")
-    @PreAuthorize("hasAuthority('gw:role')")
+    @PreAuthorize("hasAuthority('gw:role:list')")
     @GetMapping("/list")
     public Result list(String name){
         List<GwRole> gwRoles=gwRoleService.list(new QueryWrapper<GwRole>().like(StrUtil.isNotBlank(name),"name",name));

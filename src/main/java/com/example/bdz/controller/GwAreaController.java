@@ -34,7 +34,7 @@ public class GwAreaController extends BaseController {
     @Autowired
     GwEquipService gwEquipService;
     @ApiOperation("根据id获取区域信息接口")
-    @PreAuthorize("hasAuthority('gw:area')")
+    @PreAuthorize("hasAuthority('gw:area:list')")
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
         GwArea gwArea = gwAreaService.getById(id);
@@ -42,7 +42,7 @@ public class GwAreaController extends BaseController {
         return Result.success(gwArea);
     }
     @ApiOperation("获取区域列表接口")
-    @PreAuthorize("hasAuthority('gw:area')")
+    @PreAuthorize("hasAuthority('gw:area:list')")
     @GetMapping("/list")
     public Result list(String name){
         List<GwArea> gwAreas=gwAreaService.list(new QueryWrapper<GwArea>().like(StrUtil.isNotBlank(name),"area_name",name));

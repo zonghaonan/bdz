@@ -53,7 +53,7 @@ public class GwMenuController extends BaseController {
     }
     @ApiOperation("根据id获取权限信息接口")
     @GetMapping("/info/{id}")
-    @PreAuthorize("hasAuthority('gw:menu')")
+    @PreAuthorize("hasAuthority('gw:menu:list')")
     public Result info(@PathVariable("id") Integer id){
         GwMenu gwMenu = gwMenuService.getById(id);
         Assert.notNull(gwMenu,"找不到该权限");
@@ -61,7 +61,7 @@ public class GwMenuController extends BaseController {
     }
     @ApiOperation("获取权限列表接口")
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('gw:menu')")
+    @PreAuthorize("hasAuthority('gw:menu:list')")
     public Result list(){
         List<GwMenu> gwMenus=gwMenuService.tree();
         return Result.success(gwMenus);

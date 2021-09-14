@@ -60,8 +60,9 @@ public class GwUser implements Serializable {
     @NotBlank(message = "手机号不能为空")
     private String phone;
 
-    @ApiModelProperty(value = "城市")
-    private String city;
+    @ApiModelProperty(value = "部门")
+    @NotBlank(message = "部门不能为空")
+    private String section;
 
     @ApiModelProperty(value = "用户状态")
     private Integer status;

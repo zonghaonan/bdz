@@ -36,7 +36,7 @@ public class GwEquipController extends BaseController {
     @Autowired
     GwAreaService gwAreaService;
     @ApiOperation("根据id获取资产信息接口")
-    @PreAuthorize("hasAuthority('gw:equip')")
+    @PreAuthorize("hasAuthority('gw:equip:list')")
     @GetMapping("/info/{equipId}")
     public Result info(@PathVariable("equipId") Long equipId){
         GwEquip gwEquip = gwEquipService.getById(equipId);
@@ -46,7 +46,7 @@ public class GwEquipController extends BaseController {
         return Result.success(gwEquip);
     }
     @ApiOperation("获取资产列表接口")
-    @PreAuthorize("hasAuthority('gw:equip')")
+    @PreAuthorize("hasAuthority('gw:equip:list')")
     @GetMapping("/list")
     public Result list(String equipName){
         Page<GwEquip> gwEquipPage=gwEquipService.page(getPage(),new QueryWrapper<GwEquip>().like(StrUtil.isNotBlank(equipName),"equip_name",equipName));

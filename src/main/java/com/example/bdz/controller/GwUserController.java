@@ -50,7 +50,7 @@ public class GwUserController extends BaseController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
     @GetMapping("/userInfo")  //查询当前用户
-    @PreAuthorize("hasAuthority('gw:user')")
+    @PreAuthorize("hasAuthority('gw:user:list')")
     @ApiOperation("查询当前用户接口")
     public Result getUserInfo(Principal principal) {
         GwUser userInfo = gwUserService.getByUsername(principal.getName());
@@ -62,7 +62,7 @@ public class GwUserController extends BaseController {
                 map());
     }
     @GetMapping("/info/{userId}")
-    @PreAuthorize("hasAuthority('gw:user')")
+    @PreAuthorize("hasAuthority('gw:user:list')")
     @ApiOperation("根据用户id查询用户信息接口")
     public Result getUserList(@PathVariable("userId")Long userId) {
         GwUser gwUser = gwUserService.getById(userId);
@@ -72,7 +72,7 @@ public class GwUserController extends BaseController {
         return Result.success(gwUser);
     }
     @GetMapping("/list")  //查询所有用户
-    @PreAuthorize("hasAuthority('gw:user')")
+    @PreAuthorize("hasAuthority('gw:user:list')")
     @ApiOperation("查询用户列表接口")
     public Result getUserList(String username) {
         Page<GwUser> gwUserPage=gwUserService.page(getPage(),new QueryWrapper<GwUser>().like(StrUtil.isNotBlank(username),"username",username));
