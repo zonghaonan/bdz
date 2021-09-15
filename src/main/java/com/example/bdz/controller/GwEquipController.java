@@ -85,7 +85,7 @@ public class GwEquipController extends BaseController {
     }
     @ApiOperation("删除资产接口")
     @PreAuthorize("hasAuthority('gw:equip:delete')")
-    @DeleteMapping("/delete/{equipId}")
+    @PostMapping("/delete/{equipId}")
     @Transactional
     public Result delete(@PathVariable("equipId") Long equipId){
         GwEquip gwEquip = gwEquipService.getById(equipId);

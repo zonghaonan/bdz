@@ -71,7 +71,7 @@ public class GwAreaController extends BaseController {
     }
     @ApiOperation("删除区域接口")
     @PreAuthorize("hasAuthority('gw:area:delete')")
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     @Transactional
     public Result delete(@PathVariable("id") Integer id){
         GwArea gwArea = gwAreaService.getById(id);

@@ -118,7 +118,7 @@ public class GwUserController extends BaseController {
     }
     @ApiOperation("删除用户接口")
     @PreAuthorize("hasAuthority('gw:user:delete')")
-    @DeleteMapping("/delete/{userId}")
+    @PostMapping("/delete/{userId}")
     @Transactional
     public Result delete(@PathVariable("userId") Long userId){
         Assert.notNull(gwUserService.getById(userId),"该用户不存在");
