@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.bdz.common.dto.PasswordDto;
 import com.example.bdz.common.lang.Const;
+import com.example.bdz.common.lang.ErrorCode;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwRole;
 import com.example.bdz.pojo.GwRoleMenu;
@@ -29,6 +30,10 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.sun.javaws.JnlpxArgs.verify;
 
 /**
  * <p>
@@ -90,6 +95,14 @@ public class GwUserController extends BaseController {
         if(u!=null){
             return Result.fail("用户名已存在");
         }
+        //校验邮箱
+        if(!verifyEmail(gwUser.getEmail())){
+            return Result.fail(ErrorCode.INVALIDPARAM.code(),"邮箱格式不正确",null);
+        }
+        //校验手机号
+        if(!verifyPhone(gwUser.getPhone())){
+            return Result.fail(ErrorCode.INVALIDPARAM.code(),"手机号格式不正确",null);
+        }
         gwUser.setStatus(Const.STATUS_ON);
         String password=passwordEncoder.encode(Const.DEFAULT_PASSWORD);
         gwUser.setPassword(password);
@@ -102,6 +115,18 @@ public class GwUserController extends BaseController {
         gwUser.setGwRole(gwRoleService.getByUserId(gwUser.getUserId()));
         return Result.success(gwUser);
     }
+    boolean verifyEmail(String email){
+        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        Pattern regex = Pattern.compile(check);
+        Matcher matcher = regex.matcher(email);
+        return matcher.matches();
+    }
+    boolean verifyPhone(String phone){
+        String check = "^((13[0-9])|(14[0,1,4-9])|(15[0-3,5-9])|(16[2,5,6,7])|(17[0-8])|(18[0-9])|(19[0-3,5-9]))\\d{8}$";
+        Pattern regex = Pattern.compile(check);
+        Matcher matcher = regex.matcher(phone);
+        return matcher.matches();
+    }
     @ApiOperation("更新用户接口")
     @PreAuthorize("hasAuthority('gw:user:update')")
     @PostMapping("/update/{userId}")
@@ -110,6 +135,14 @@ public class GwUserController extends BaseController {
         Assert.notNull(user,"该用户不存在");
         if(!user.getUsername().equals(gwUser.getUsername())){
             return Result.fail("用户名不能修改");
+        }
+        //校验邮箱
+        if(!verifyEmail(gwUser.getEmail())){
+            return Result.fail(ErrorCode.INVALIDPARAM.code(),"邮箱格式不正确",null);
+        }
+        //校验手机号
+        if(!verifyPhone(gwUser.getPhone())){
+            return Result.fail(ErrorCode.INVALIDPARAM.code(),"手机号格式不正确",null);
         }
         gwUser.setUserId(userId);
         gwUserService.updateById(gwUser);
