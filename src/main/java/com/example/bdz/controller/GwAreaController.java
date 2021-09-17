@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwArea;
+import com.example.bdz.pojo.GwEquip;
 import com.example.bdz.service.GwAreaService;
 import com.example.bdz.service.GwEquipService;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +40,7 @@ public class GwAreaController extends BaseController {
     public Result info(@PathVariable("id") Integer id){
         GwArea gwArea = gwAreaService.getById(id);
         Assert.notNull(gwArea,"找不到该区域");
+        gwArea.setEquipCount(gwEquipService.count(new QueryWrapper<GwEquip>().eq("area_id",id)));
         return Result.success(gwArea);
     }
     @ApiOperation("获取区域列表接口")
@@ -46,15 +48,20 @@ public class GwAreaController extends BaseController {
     @GetMapping("/list")
     public Result list(String name){
         List<GwArea> gwAreas=gwAreaService.list(new QueryWrapper<GwArea>().like(StrUtil.isNotBlank(name),"area_name",name));
+        for (GwArea gwArea : gwAreas) {
+            gwArea.setEquipCount(gwEquipService.count(new QueryWrapper<GwEquip>().eq("area_id",gwArea.getId())));
+        }
         return Result.success(gwAreas);
     }
     @ApiOperation("添加区域接口")
     @PreAuthorize("hasAuthority('gw:area:save')")
     @PostMapping("/save")
     public Result save(@Validated @RequestBody GwArea gwArea){
+        GwArea ga=gwAreaService.getByAreaName(gwArea.getAreaName());
+        if(ga!=null){
+            return Result.fail("该区域已存在");
+        }
         gwAreaService.save(gwArea);
-        gwArea.setEquipCount(0);
-        gwArea.setEquipAllCount(0);
         return Result.success(gwArea);
     }
     @ApiOperation("更新区域接口")
@@ -64,9 +71,14 @@ public class GwAreaController extends BaseController {
         GwArea ga = gwAreaService.getById(id);
         Assert.notNull(ga,"找不到该区域");
         gwArea.setId(id);
+        if(ga.getAreaName().equals(gwArea.getAreaName())){
+            return Result.success(gwArea);
+        }
+        GwArea ga1=gwAreaService.getByAreaName(gwArea.getAreaName());
+        if(ga1!=null){
+            return Result.fail("该区域已存在");
+        }
         gwAreaService.updateById(gwArea);
-        gwArea.setEquipCount(ga.getEquipCount());
-        gwArea.setEquipAllCount(ga.getEquipAllCount());
         return Result.success(gwArea);
     }
     @ApiOperation("删除区域接口")
@@ -76,7 +88,8 @@ public class GwAreaController extends BaseController {
     public Result delete(@PathVariable("id") Integer id){
         GwArea gwArea = gwAreaService.getById(id);
         Assert.notNull(gwArea,"该区域不存在");
-        if(gwArea.getEquipCount()>0){
+        int count = gwEquipService.count(new QueryWrapper<GwEquip>().eq("area_id", id));
+        if(count>0){
             return Result.fail("该区域存在资产");
         }
         gwAreaService.removeById(id);

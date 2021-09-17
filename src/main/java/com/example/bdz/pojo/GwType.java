@@ -18,22 +18,24 @@ import javax.validation.constraints.NotBlank;
  * </p>
  *
  * @author zhn
- * @since 2021-09-09
+ * @since 2021-09-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="GwCategory对象", description="")
-public class GwArea implements Serializable {
+@ApiModel(value="GwType对象", description="")
+public class GwType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "编号")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-    @ApiModelProperty(value = "区域名称")
-    @NotBlank(message = "区域名称不能为空")
-    private String areaName;
-    @ApiModelProperty(value = "区域资产个数")
+
+    @ApiModelProperty(value = "类别名称")
+    @NotBlank(message = "类型名不能为空")
+    private String typeName;
+
+    @ApiModelProperty(value = "类别资产个数")
     @TableField(exist = false)
     private Integer equipCount;
 

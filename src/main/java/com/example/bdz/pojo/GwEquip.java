@@ -40,12 +40,9 @@ public class GwEquip implements Serializable {
     @NotBlank(message = "资产名称不能为空")
     private String equipName;
 
-    @ApiModelProperty(value = "数量")
-    @NotNull(message = "数量不能为空")
-    private Integer count;
 
     @ApiModelProperty(value = "型号")
-    private String type;
+    private String model;
 
     @ApiModelProperty(value = "品牌")
     private String brand;
@@ -58,9 +55,18 @@ public class GwEquip implements Serializable {
     @NotNull(message = "存放区域不能为空")
     private Integer areaId;
 
+    @ApiModelProperty(value = "类别id")
+    @NotNull(message = "类别不能为空")
+    private Integer typeId;
+
+
     @ApiModelProperty(value = "存放区域名")
     @TableField(exist = false)
     private String areaName;
+
+    @ApiModelProperty(value = "存放类型名")
+    @TableField(exist = false)
+    private String typeName;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

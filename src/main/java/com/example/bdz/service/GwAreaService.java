@@ -14,8 +14,5 @@ import com.example.bdz.pojo.GwEquip;
  */
 public interface GwAreaService extends IService<GwArea> {
 
-    void updateCount(Integer areaId,int count);
-
-    void updateCount(GwEquip preGwEquip, GwEquip gwEquip);
-
+    GwArea getByAreaName(String areaName);
 }
