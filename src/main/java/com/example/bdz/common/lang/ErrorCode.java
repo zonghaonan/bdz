@@ -6,7 +6,7 @@ package com.example.bdz.common.lang;
  * @Version 1.0
  */
 public enum ErrorCode implements ResultCode {
-    UNAUTHENTICATED(false,10001,"此操作需要登陆系统！"),
+    UNAUTHENTICATED(false,10001,"登录异常，请重新登录！"),
     UNAUTHORISE(false,10002,"权限不足，无权操作！"),
     INVALIDPARAM(false,10003,"非法参数"),
     NOTFOUND(false,10004,"找不到内容"),

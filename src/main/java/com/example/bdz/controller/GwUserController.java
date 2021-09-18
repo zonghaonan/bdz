@@ -69,113 +69,39 @@ public class GwUserController extends BaseController {
     @GetMapping("/info/{userId}")
     @PreAuthorize("hasAuthority('gw:user:list')")
     @ApiOperation("根据用户id查询用户信息接口")
-    public Result getUserList(@PathVariable("userId")Long userId) {
-        GwUser gwUser = gwUserService.getById(userId);
-        Assert.notNull(gwUser,"找不到该用户");
-        GwRole gwRole=gwRoleService.getByUserId(userId);
-        gwUser.setGwRole(gwRole);
-        return Result.success(gwUser);
+    public Result info(@PathVariable("userId")Long userId) {
+        return gwUserService.info(userId);
     }
     @GetMapping("/list")  //查询所有用户
     @PreAuthorize("hasAuthority('gw:user:list')")
     @ApiOperation("查询用户列表接口")
-    public Result getUserList(String username) {
-        Page<GwUser> gwUserPage=gwUserService.page(getPage(),new QueryWrapper<GwUser>().like(StrUtil.isNotBlank(username),"username",username));
-        for (GwUser gwUser : gwUserPage.getRecords()) {
-            gwUser.setGwRole(gwRoleService.getByUserId(gwUser.getUserId()));
-        }
-        return Result.success(gwUserPage);
+    public Result list(String username) {
+        return gwUserService.getUserList(username);
     }
     @ApiOperation("添加用户接口")
     @PreAuthorize("hasAuthority('gw:user:save')")
     @PostMapping("/save")
-    @Transactional
     public Result save(@Validated @RequestBody GwUser gwUser){
-        GwUser u = gwUserService.getByUsername(gwUser.getUsername());
-        if(u!=null){
-            return Result.fail("用户名已存在");
-        }
-        //校验邮箱
-        if(!verifyEmail(gwUser.getEmail())){
-            return Result.fail(ErrorCode.INVALIDPARAM.code(),"邮箱格式不正确",null);
-        }
-        //校验手机号
-        if(!verifyPhone(gwUser.getPhone())){
-            return Result.fail(ErrorCode.INVALIDPARAM.code(),"手机号格式不正确",null);
-        }
-        gwUser.setStatus(Const.STATUS_ON);
-        String password=passwordEncoder.encode(Const.DEFAULT_PASSWORD);
-        gwUser.setPassword(password);
-        gwUserService.save(gwUser);
-        //默认分配普通用户角色
-        GwUserRole userRole=new GwUserRole();
-        userRole.setUserId(gwUser.getUserId());
-        userRole.setRoleId(2);
-        gwUserRoleService.save(userRole);
-        gwUser.setGwRole(gwRoleService.getByUserId(gwUser.getUserId()));
-        return Result.success(gwUser);
+        return gwUserService.addUser(gwUser);
     }
-    boolean verifyEmail(String email){
-        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
-        Pattern regex = Pattern.compile(check);
-        Matcher matcher = regex.matcher(email);
-        return matcher.matches();
-    }
-    boolean verifyPhone(String phone){
-        String check = "^((13[0-9])|(14[0,1,4-9])|(15[0-3,5-9])|(16[2,5,6,7])|(17[0-8])|(18[0-9])|(19[0-3,5-9]))\\d{8}$";
-        Pattern regex = Pattern.compile(check);
-        Matcher matcher = regex.matcher(phone);
-        return matcher.matches();
-    }
+
     @ApiOperation("更新用户接口")
     @PreAuthorize("hasAuthority('gw:user:update')")
     @PostMapping("/update/{userId}")
     public Result update(@PathVariable("userId") Long userId,@Validated @RequestBody GwUser gwUser){
-        GwUser user = gwUserService.getById(userId);
-        Assert.notNull(user,"该用户不存在");
-        if(!user.getUsername().equals(gwUser.getUsername())){
-            return Result.fail("用户名不能修改");
-        }
-        //校验邮箱
-        if(!verifyEmail(gwUser.getEmail())){
-            return Result.fail(ErrorCode.INVALIDPARAM.code(),"邮箱格式不正确",null);
-        }
-        //校验手机号
-        if(!verifyPhone(gwUser.getPhone())){
-            return Result.fail(ErrorCode.INVALIDPARAM.code(),"手机号格式不正确",null);
-        }
-        gwUser.setUserId(userId);
-        gwUserService.updateById(gwUser);
-        gwUser.setGwRole(gwRoleService.getByUserId(userId));
-        return Result.success(gwUser);
+        return gwUserService.updateUser(userId,gwUser);
     }
     @ApiOperation("删除用户接口")
     @PreAuthorize("hasAuthority('gw:user:delete')")
     @PostMapping("/delete/{userId}")
-    @Transactional
     public Result delete(@PathVariable("userId") Long userId){
-        Assert.notNull(gwUserService.getById(userId),"该用户不存在");
-        //清除缓存
-        gwUserService.clearUserAuthorityInfo(userId);
-        gwUserService.clearUserJwtByUserId(userId);
-        //删除中间表
-        gwUserRoleService.remove(new QueryWrapper<GwUserRole>().eq("user_id",userId));
-        gwUserService.removeById(userId);
-        return Result.success(null);
+        return gwUserService.deleteUser(userId);
     }
     @ApiOperation("分配角色接口")
     @PreAuthorize("hasAuthority('gw:user:perm')")
     @PostMapping("/perm/{userId}/{roleId}")
-    @Transactional
     public Result perm(@PathVariable("userId") Long userId,@PathVariable("roleId") Integer roleId){
-        Assert.notNull(gwUserService.getById(userId),"该用户不存在");
-        GwUserRole userRole=new GwUserRole();
-        userRole.setUserId(userId);
-        userRole.setRoleId(roleId);
-        gwUserRoleService.saveOrUpdate(userRole,new QueryWrapper<GwUserRole>().eq("user_id",userId));
-        //删除缓存
-        gwUserService.clearUserAuthorityInfo(userId);
-        return Result.success(null);
+        return gwUserService.perm(userId,roleId);
     }
     @ApiOperation("重置密码接口")
     @PreAuthorize("hasAuthority('gw:user:repass')")

@@ -1,5 +1,6 @@
 package com.example.bdz.service;
 
+import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import sun.rmi.runtime.Log;
@@ -22,4 +23,16 @@ public interface GwUserService extends IService<GwUser> {
     void clearUserJwtByUserId(Long userId);
     void clearUserAuthorityInfoByRoleId(Integer roleId);
     void clearUserAuthorityInfoByMenuId(Integer menuId);
+
+    Result info(Long userId);
+
+    Result getUserList(String username);
+
+    Result addUser(GwUser gwUser);
+
+    Result updateUser(Long userId,GwUser gwUser);
+
+    Result deleteUser(Long userId);
+
+    Result perm(Long userId, Integer roleId);
 }
