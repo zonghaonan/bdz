@@ -1,5 +1,6 @@
 package com.example.bdz.service;
 
+import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwEquip;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GwEquipService extends IService<GwEquip> {
 
+    Result info(Long equipId);
+
+    Result getEquipList(String equipName, int areaId, int typeId);
+
+    Result addEquip(GwEquip gwEquip);
+
+    Result updateEquip(Long equipId, GwEquip gwEquip);
+
+    Result deleteEquip(Long equipId);
 }

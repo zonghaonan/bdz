@@ -31,79 +31,39 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("gw/equip")
-public class GwEquipController extends BaseController {
+public class GwEquipController extends BaseController{
 
     @Autowired
     GwEquipService gwEquipService;
-    @Autowired
-    GwAreaService gwAreaService;
-    @Autowired
-    GwTypeService gwTypeService;
     @ApiOperation("根据id获取资产信息接口")
     @PreAuthorize("hasAuthority('gw:equip:list')")
     @GetMapping("/info/{equipId}")
     public Result info(@PathVariable("equipId") Long equipId){
-        GwEquip gwEquip = gwEquipService.getById(equipId);
-        Assert.notNull(gwEquip,"找不到该资产");
-        GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
-        gwEquip.setAreaName(gwArea.getAreaName());
-        GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
-        gwEquip.setAreaName(gwType.getTypeName());
-        return Result.success(gwEquip);
+        return gwEquipService.info(equipId);
     }
     @ApiOperation("获取资产列表接口")
     @PreAuthorize("hasAuthority('gw:equip:list')")
     @GetMapping("/list")
     public Result list(String equipName,int areaId,int typeId){
-        Page<GwEquip> gwEquipPage=gwEquipService.page(getPage(),
-                new QueryWrapper<GwEquip>()
-                        .like(StrUtil.isNotBlank(equipName),"equip_name",equipName)
-                        .eq(areaId!=0,"area_id",areaId)
-                        .eq(typeId!=0,"type_id",typeId));
-        for (GwEquip gwEquip : gwEquipPage.getRecords()) {
-            GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
-            gwEquip.setAreaName(gwArea.getAreaName());
-            GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
-            gwEquip.setTypeName(gwType.getTypeName());
-        }
-        return Result.success(gwEquipPage);
+        return gwEquipService.getEquipList(equipName,areaId,typeId);
     }
     @ApiOperation("添加资产接口")
     @PreAuthorize("hasAuthority('gw:equip:save')")
     @PostMapping("/save")
-    @Transactional
     public Result save(@Validated @RequestBody GwEquip gwEquip){
-        gwEquipService.save(gwEquip);
-        GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
-        gwEquip.setAreaName(gwArea.getAreaName());
-        GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
-        gwEquip.setAreaName(gwType.getTypeName());
-        return Result.success(gwEquip);
+        return gwEquipService.addEquip(gwEquip);
     }
     @ApiOperation("更新资产接口")
     @PreAuthorize("hasAuthority('gw:equip:update')")
     @PostMapping("/update/{equipId}")
-    @Transactional
     public Result update(@PathVariable("equipId") Long equipId,@Validated @RequestBody GwEquip gwEquip){
-        GwEquip preGwEquip = gwEquipService.getById(equipId);
-        Assert.notNull(preGwEquip,"找不到该资产");
-        gwEquip.setEquipId(equipId);
-        gwEquipService.updateById(gwEquip);
-        GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
-        gwEquip.setAreaName(gwArea.getAreaName());
-        GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
-        gwEquip.setAreaName(gwType.getTypeName());
-        return Result.success(gwEquip);
+        return gwEquipService.updateEquip(equipId,gwEquip);
     }
     @ApiOperation("删除资产接口")
     @PreAuthorize("hasAuthority('gw:equip:delete')")
     @PostMapping("/delete/{equipId}")
-    @Transactional
     public Result delete(@PathVariable("equipId") Long equipId){
-        GwEquip gwEquip = gwEquipService.getById(equipId);
-        Assert.notNull(gwEquip,"该资产不存在");
-        gwEquipService.removeById(gwEquip);
-        return Result.success(null);
+        return gwEquipService.deleteEquip(equipId);
     }
 }
 

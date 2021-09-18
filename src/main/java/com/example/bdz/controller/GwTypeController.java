@@ -4,10 +4,8 @@ package com.example.bdz.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bdz.common.lang.Result;
-import com.example.bdz.pojo.GwArea;
 import com.example.bdz.pojo.GwEquip;
 import com.example.bdz.pojo.GwType;
-import com.example.bdz.service.GwAreaService;
 import com.example.bdz.service.GwEquipService;
 import com.example.bdz.service.GwTypeService;
 import io.swagger.annotations.ApiOperation;
@@ -30,71 +28,38 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/gw/type")
-public class GwTypeController {
+public class GwTypeController extends BaseController {
     @Autowired
     GwTypeService gwTypeService;
-    @Autowired
-    GwEquipService gwEquipService;
     @ApiOperation("根据id获取分类信息接口")
     @PreAuthorize("hasAuthority('gw:type:list')")
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
-        GwType gwType = gwTypeService.getById(id);
-        Assert.notNull(gwType,"找不到该分类");
-        gwType.setEquipCount(gwEquipService.count(new QueryWrapper<GwEquip>().eq("type_id",id)));
-        return Result.success(gwType);
+        return gwTypeService.info(id);
     }
     @ApiOperation("获取分类列表接口")
     @PreAuthorize("hasAuthority('gw:type:list')")
     @GetMapping("/list")
     public Result list(String name){
-        List<GwType> gwTypes=gwTypeService.list(new QueryWrapper<GwType>().like(StrUtil.isNotBlank(name),"type_name",name));
-        for (GwType gwType : gwTypes) {
-            gwType.setEquipCount(gwEquipService.count(new QueryWrapper<GwEquip>().eq("type_id",gwType.getId())));
-        }
-        return Result.success(gwTypes);
+        return gwTypeService.getTypeList(name);
     }
     @ApiOperation("添加分类接口")
     @PreAuthorize("hasAuthority('gw:type:save')")
     @PostMapping("/save")
     public Result save(@Validated @RequestBody GwType gwType){
-        GwType gt=gwTypeService.getByTypeName(gwType.getTypeName());
-        if(gt!=null){
-            return Result.fail("该分类已存在");
-        }
-        gwTypeService.save(gwType);
-        return Result.success(gwType);
+        return gwTypeService.addType(gwType);
     }
     @ApiOperation("更新分类接口")
     @PreAuthorize("hasAuthority('gw:type:update')")
     @PostMapping("/update/{id}")
     public Result update(@PathVariable("id") Integer id,@Validated @RequestBody GwType gwType){
-        GwType gt = gwTypeService.getById(id);
-        Assert.notNull(gt,"找不到该分类");
-        gwType.setId(id);
-        if(gt.getTypeName().equals(gwType.getTypeName())){
-            return Result.success(gwType);
-        }
-        GwType gt1=gwTypeService.getByTypeName(gwType.getTypeName());
-        if(gt1!=null){
-            return Result.fail("该分类已存在");
-        }
-        gwTypeService.updateById(gwType);
-        return Result.success(gwType);
+        return gwTypeService.updateType(id,gwType);
     }
     @ApiOperation("删除分类接口")
     @PreAuthorize("hasAuthority('gw:type:delete')")
     @PostMapping("/delete/{id}")
-    @Transactional
     public Result delete(@PathVariable("id") Integer id){
-        GwType gwType = gwTypeService.getById(id);
-        Assert.notNull(gwType,"该分类不存在");
-        int count = gwEquipService.count(new QueryWrapper<GwEquip>().eq("type_id", id));
-        if(count>0){
-            return Result.fail("该分类存在资产");
-        }
-        gwTypeService.removeById(id);
-        return Result.success(null);
+        return gwTypeService.deleteType(id);
     }
 }
 

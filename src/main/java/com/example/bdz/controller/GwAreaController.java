@@ -32,68 +32,35 @@ public class GwAreaController extends BaseController {
 
     @Autowired
     GwAreaService gwAreaService;
-    @Autowired
-    GwEquipService gwEquipService;
     @ApiOperation("根据id获取区域信息接口")
     @PreAuthorize("hasAuthority('gw:area:list')")
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
-        GwArea gwArea = gwAreaService.getById(id);
-        Assert.notNull(gwArea,"找不到该区域");
-        gwArea.setEquipCount(gwEquipService.count(new QueryWrapper<GwEquip>().eq("area_id",id)));
-        return Result.success(gwArea);
+        return gwAreaService.info(id);
     }
     @ApiOperation("获取区域列表接口")
     @PreAuthorize("hasAuthority('gw:area:list')")
     @GetMapping("/list")
     public Result list(String name){
-        List<GwArea> gwAreas=gwAreaService.list(new QueryWrapper<GwArea>().like(StrUtil.isNotBlank(name),"area_name",name));
-        for (GwArea gwArea : gwAreas) {
-            gwArea.setEquipCount(gwEquipService.count(new QueryWrapper<GwEquip>().eq("area_id",gwArea.getId())));
-        }
-        return Result.success(gwAreas);
+        return gwAreaService.getAreaList(name);
     }
     @ApiOperation("添加区域接口")
     @PreAuthorize("hasAuthority('gw:area:save')")
     @PostMapping("/save")
     public Result save(@Validated @RequestBody GwArea gwArea){
-        GwArea ga=gwAreaService.getByAreaName(gwArea.getAreaName());
-        if(ga!=null){
-            return Result.fail("该区域已存在");
-        }
-        gwAreaService.save(gwArea);
-        return Result.success(gwArea);
+        return gwAreaService.addArea(gwArea);
     }
     @ApiOperation("更新区域接口")
     @PreAuthorize("hasAuthority('gw:area:update')")
     @PostMapping("/update/{id}")
     public Result update(@PathVariable("id") Integer id,@Validated @RequestBody GwArea gwArea){
-        GwArea ga = gwAreaService.getById(id);
-        Assert.notNull(ga,"找不到该区域");
-        gwArea.setId(id);
-        if(ga.getAreaName().equals(gwArea.getAreaName())){
-            return Result.success(gwArea);
-        }
-        GwArea ga1=gwAreaService.getByAreaName(gwArea.getAreaName());
-        if(ga1!=null){
-            return Result.fail("该区域已存在");
-        }
-        gwAreaService.updateById(gwArea);
-        return Result.success(gwArea);
+        return gwAreaService.updateArea(id,gwArea);
     }
     @ApiOperation("删除区域接口")
     @PreAuthorize("hasAuthority('gw:area:delete')")
     @PostMapping("/delete/{id}")
-    @Transactional
     public Result delete(@PathVariable("id") Integer id){
-        GwArea gwArea = gwAreaService.getById(id);
-        Assert.notNull(gwArea,"该区域不存在");
-        int count = gwEquipService.count(new QueryWrapper<GwEquip>().eq("area_id", id));
-        if(count>0){
-            return Result.fail("该区域存在资产");
-        }
-        gwAreaService.removeById(id);
-        return Result.success(null);
+        return gwAreaService.deleteArea(id);
     }
 }
 

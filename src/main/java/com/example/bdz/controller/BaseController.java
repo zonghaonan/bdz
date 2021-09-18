@@ -15,14 +15,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class BaseController {
     @Autowired
-    HttpServletRequest request;
-    @Autowired
     RedisUtil redisUtil;
-    @Autowired
-    GwUserService gwUserService;
-    public Page getPage(){
-        int page= ServletRequestUtils.getIntParameter(request,"page",1);
-        int size= ServletRequestUtils.getIntParameter(request,"size",10);
-        return new Page(page,size);
-    }
 }

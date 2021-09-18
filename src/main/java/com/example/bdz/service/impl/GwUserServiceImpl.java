@@ -3,6 +3,7 @@ package com.example.bdz.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.bdz.common.dto.PasswordDto;
 import com.example.bdz.common.lang.Const;
 import com.example.bdz.common.lang.ErrorCode;
 import com.example.bdz.common.lang.Result;
@@ -28,6 +29,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -186,6 +188,29 @@ public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> impleme
         gwUserRoleService.saveOrUpdate(userRole,new QueryWrapper<GwUserRole>().eq("user_id",userId));
         //删除缓存
         clearUserAuthorityInfo(userId);
+        return Result.success(null);
+    }
+
+    //重置密码
+    @Override
+    public Result repass(Long userId) {
+        GwUser gwUser=getById(userId);
+        Assert.notNull(gwUser,"该用户不存在");
+        gwUser.setPassword(passwordEncoder.encode(Const.DEFAULT_PASSWORD));
+        updateById(gwUser);
+        return Result.success(null);
+    }
+
+    //修改密码
+    @Override
+    public Result updatePwd(PasswordDto passwordDto, Principal principal) {
+        GwUser gwUser=getByUsername(principal.getName());
+        boolean match=passwordEncoder.matches(passwordDto.getCurrentPwd(),gwUser.getPassword());
+        if(!match){
+            return Result.fail("旧密码不正确");
+        }
+        gwUser.setPassword(passwordEncoder.encode(passwordDto.getPwd()));
+        updateById(gwUser);
         return Result.success(null);
     }
 

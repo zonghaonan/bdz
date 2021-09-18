@@ -36,35 +36,22 @@ import java.util.List;
 public class GwMenuController extends BaseController {
     @Autowired
     GwMenuService gwMenuService;
-    @Autowired
-    GwRoleMenuService gwRoleMenuService;
     @ApiOperation("获取当前用户的权限列表接口")
     @GetMapping("/nav")
     public Result nav(Principal principal){
-        GwUser gwUser=gwUserService.getByUsername(principal.getName());
-        //获取权限信息
-        String authority=gwUserService.getUserAuthorityInfo(gwUser.getUserId());
-        String[] authorityArray= StringUtils.tokenizeToStringArray(authority,",");
-        List<GwMenuDto> navs=gwMenuService.getNavByUserId(gwUser.getUserId());
-        return Result.success(MapUtil.builder()
-                        .put("authorities",authorityArray)
-                        .put("nav",navs)
-                        .map());
+        return gwMenuService.nav(principal);
     }
     @ApiOperation("根据id获取权限信息接口")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('gw:menu:list')")
     public Result info(@PathVariable("id") Integer id){
-        GwMenu gwMenu = gwMenuService.getById(id);
-        Assert.notNull(gwMenu,"找不到该权限");
-        return Result.success(gwMenu);
+        return gwMenuService.info(id);
     }
     @ApiOperation("获取权限列表接口")
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('gw:menu:list')")
     public Result list(){
-        List<GwMenu> gwMenus=gwMenuService.tree();
-        return Result.success(gwMenus);
+        return gwMenuService.getMenuTree();
     }
 
 //    @ApiOperation("添加权限接口")

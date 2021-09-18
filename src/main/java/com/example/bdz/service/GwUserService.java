@@ -1,9 +1,12 @@
 package com.example.bdz.service;
 
+import com.example.bdz.common.dto.PasswordDto;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import sun.rmi.runtime.Log;
+
+import java.security.Principal;
 
 /**
  * <p>
@@ -35,4 +38,8 @@ public interface GwUserService extends IService<GwUser> {
     Result deleteUser(Long userId);
 
     Result perm(Long userId, Integer roleId);
+
+    Result repass(Long userId);
+
+    Result updatePwd(PasswordDto passwordDto, Principal principal);
 }

@@ -1,9 +1,11 @@
 package com.example.bdz.service;
 
 import com.example.bdz.common.dto.GwMenuDto;
+import com.example.bdz.common.lang.Result;
 import com.example.bdz.pojo.GwMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -16,7 +18,9 @@ import java.util.List;
  */
 public interface GwMenuService extends IService<GwMenu> {
 
-    List<GwMenuDto> getNavByUserId(Long userId);
+    Result nav(Principal principal);
 
-    List<GwMenu> tree();
+    Result info(Integer id);
+
+    Result getMenuTree();
 }
