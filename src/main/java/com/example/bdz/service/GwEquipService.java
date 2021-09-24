@@ -16,7 +16,7 @@ public interface GwEquipService extends IService<GwEquip> {
 
     Result info(Long equipId);
 
-    Result getEquipList(String equipName, int areaId, int typeId);
+    Result getEquipList(String equipName, Integer areaId, Integer typeId);
 
     Result addEquip(GwEquip gwEquip);
 

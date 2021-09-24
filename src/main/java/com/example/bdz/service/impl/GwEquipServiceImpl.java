@@ -45,13 +45,19 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
         gwEquip.setAreaName(gwArea.getAreaName());
         GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
-        gwEquip.setAreaName(gwType.getTypeName());
+        gwEquip.setTypeName(gwType.getTypeName());
         return Result.success(gwEquip);
     }
 
     //获取资产列表
     @Override
-    public Result getEquipList(String equipName, int areaId, int typeId) {
+    public Result getEquipList(String equipName, Integer areaId, Integer typeId) {
+        if(areaId==null){
+            areaId=0;
+        }
+        if(typeId==null){
+            typeId=0;
+        }
         Page<GwEquip> gwEquipPage=page(getPage(),
                 new QueryWrapper<GwEquip>()
                         .like(StrUtil.isNotBlank(equipName),"equip_name",equipName)
@@ -77,7 +83,7 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
         gwEquip.setAreaName(gwArea.getAreaName());
         GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
-        gwEquip.setAreaName(gwType.getTypeName());
+        gwEquip.setTypeName(gwType.getTypeName());
         return Result.success(gwEquip);
     }
 
@@ -101,7 +107,7 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
         gwEquip.setAreaName(gwArea.getAreaName());
         GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
-        gwEquip.setAreaName(gwType.getTypeName());
+        gwEquip.setTypeName(gwType.getTypeName());
         return Result.success(gwEquip);
     }
 

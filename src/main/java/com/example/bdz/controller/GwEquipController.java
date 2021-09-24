@@ -44,7 +44,7 @@ public class GwEquipController extends BaseController{
     @ApiOperation("获取资产列表接口")
     @PreAuthorize("hasAuthority('gw:equip:list')")
     @GetMapping("/list")
-    public Result list(String equipName,int areaId,int typeId){
+    public Result list(String equipName,Integer areaId,Integer typeId){
         return gwEquipService.getEquipList(equipName,areaId,typeId);
     }
     @ApiOperation("添加资产接口")
