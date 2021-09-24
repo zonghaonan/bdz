@@ -55,8 +55,8 @@ public class GwEquip implements Serializable {
     @NotNull(message = "存放区域不能为空")
     private Integer areaId;
 
-    @ApiModelProperty(value = "类别id")
-    @NotNull(message = "类别不能为空")
+    @ApiModelProperty(value = "分类id")
+    @NotNull(message = "分类不能为空")
     private Integer typeId;
 
 

@@ -68,8 +68,11 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
 
     //添加资产
     @Override
-    @Transactional
     public Result addEquip(GwEquip gwEquip) {
+        GwEquip ge=getByEquipName(gwEquip.getEquipName());
+        if(ge!=null){
+            return Result.fail("该资产已存在");
+        }
         save(gwEquip);
         GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
         gwEquip.setAreaName(gwArea.getAreaName());
@@ -78,12 +81,21 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         return Result.success(gwEquip);
     }
 
+    private GwEquip getByEquipName(String equipName) {
+        return getOne(new QueryWrapper<GwEquip>().eq("equip_name",equipName));
+    }
+
     //更新资产
     @Override
-    @Transactional
     public Result updateEquip(Long equipId, GwEquip gwEquip) {
         GwEquip preGwEquip = getById(equipId);
         Assert.notNull(preGwEquip,"找不到该资产");
+        if(!preGwEquip.getEquipName().equals(gwEquip.getEquipName())){
+            GwEquip ge=getByEquipName(gwEquip.getEquipName());
+            if(ge!=null){
+                return Result.fail("该资产已存在");
+            }
+        }
         gwEquip.setEquipId(equipId);
         updateById(gwEquip);
         GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
