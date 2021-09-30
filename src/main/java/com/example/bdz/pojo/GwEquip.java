@@ -68,6 +68,9 @@ public class GwEquip implements Serializable {
     @TableField(exist = false)
     private String typeName;
 
+    @ApiModelProperty(value = "资产标识")
+    private String tag;
+
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;

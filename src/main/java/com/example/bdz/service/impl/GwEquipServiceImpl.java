@@ -79,6 +79,7 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         if(ge!=null){
             return Result.fail("该资产已存在");
         }
+        gwEquip.setTag(gwEquip.getEquipName());
         save(gwEquip);
         GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
         gwEquip.setAreaName(gwArea.getAreaName());
@@ -120,6 +121,12 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         removeById(gwEquip);
         return Result.success(null);
     }
+
+    @Override
+    public Result getEquipBadList() {
+        return null;
+    }
+
 
 
     //获取分页

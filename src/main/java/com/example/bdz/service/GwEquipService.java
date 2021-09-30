@@ -23,4 +23,6 @@ public interface GwEquipService extends IService<GwEquip> {
     Result updateEquip(Long equipId, GwEquip gwEquip);
 
     Result deleteEquip(Long equipId);
+
+    Result getEquipBadList();
 }
