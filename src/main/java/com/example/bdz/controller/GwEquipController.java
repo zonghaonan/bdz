@@ -65,7 +65,7 @@ public class GwEquipController extends BaseController{
     public Result delete(@PathVariable("equipId") Long equipId){
         return gwEquipService.deleteEquip(equipId);
     }
-    @ApiOperation("获取资产列表接口")
+    @ApiOperation("获取资产故障列表接口")
     @PreAuthorize("hasAuthority('gw:equip:badlist')")
     @GetMapping("/badlist")
     public Result badList(){

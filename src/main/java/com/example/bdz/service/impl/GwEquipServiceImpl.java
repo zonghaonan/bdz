@@ -19,6 +19,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -88,6 +90,7 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         return Result.success(gwEquip);
     }
 
+    //根据资产名查询资产
     private GwEquip getByEquipName(String equipName) {
         return getOne(new QueryWrapper<GwEquip>().eq("equip_name",equipName));
     }
@@ -122,9 +125,11 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
         return Result.success(null);
     }
 
+    //获取资产故障列表接口
     @Override
     public Result getEquipBadList() {
-        return null;
+        List<GwEquip> gwEquipList=list(new QueryWrapper<GwEquip>().eq("status",1));
+        return Result.success(gwEquipList);
     }
 
 
