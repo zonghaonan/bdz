@@ -49,6 +49,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         msg.put("userId",accountUser.getUserId());
         String jwt = jwtUtils.generateToken(msg);
         System.out.println("jwt:"+jwt);
+        gwUserService.clearUserAuthorityInfo(accountUser.getUserId());
         redisUtil.set("jwt:"+accountUser.getUserId(),jwt,604800);
         httpServletResponse.setHeader(jwtUtils.getHeader(),jwt);
         GwUser gwUser = gwUserService.getByUsername(accountUser.getUsername());
