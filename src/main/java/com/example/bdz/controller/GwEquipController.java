@@ -30,7 +30,7 @@ import java.util.List;
  * @since 2021-09-06
  */
 @RestController
-@RequestMapping("gw/equip")
+@RequestMapping("/gw/equip")
 public class GwEquipController extends BaseController{
 
     @Autowired

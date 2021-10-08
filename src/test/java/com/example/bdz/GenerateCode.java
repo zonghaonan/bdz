@@ -56,7 +56,7 @@ public class GenerateCode {
         mpg.setPackageInfo(pc);
         //4、策略配置
         StrategyConfig sc = new StrategyConfig();
-        sc.setInclude("gw_camera");//设置要映射的表名
+        sc.setInclude("gw_rail_position");//设置要映射的表名
         sc.setNaming(NamingStrategy.underline_to_camel);
         sc.setColumnNaming(NamingStrategy.underline_to_camel);
         sc.setEntityLombokModel(true);//自动lombok

@@ -7,15 +7,9 @@ import com.example.bdz.common.dto.PasswordDto;
 import com.example.bdz.common.lang.Const;
 import com.example.bdz.common.lang.ErrorCode;
 import com.example.bdz.common.lang.Result;
-import com.example.bdz.pojo.GwMenu;
-import com.example.bdz.pojo.GwRole;
-import com.example.bdz.pojo.GwUser;
+import com.example.bdz.pojo.*;
 import com.example.bdz.mapper.GwUserMapper;
-import com.example.bdz.pojo.GwUserRole;
-import com.example.bdz.service.GwMenuService;
-import com.example.bdz.service.GwRoleService;
-import com.example.bdz.service.GwUserRoleService;
-import com.example.bdz.service.GwUserService;
+import com.example.bdz.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.utils.RedisUtil;
 import lombok.Data;
@@ -54,6 +48,8 @@ public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> impleme
     GwMenuService gwMenuService;
     @Autowired
     GwUserRoleService gwUserRoleService;
+    @Autowired
+    GwPrefabsService gwPrefabsService;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
     @Autowired
@@ -173,6 +169,8 @@ public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> impleme
         clearUserJwtByUserId(userId);
         //删除中间表
         gwUserRoleService.remove(new QueryWrapper<GwUserRole>().eq("user_id",userId));
+        //删除预制体表
+        gwPrefabsService.remove(new QueryWrapper<GwPrefabs>().eq("user_id",userId));
         removeById(userId);
         return Result.success(null);
     }
