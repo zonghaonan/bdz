@@ -61,12 +61,18 @@ public class GwRailServiceImpl extends ServiceImpl<GwRailMapper, GwRail> impleme
             position.setRailId(gwRail.getRailId());
         }
         gwRailPositionService.saveBatch(positions);
-        return Result.success("");
+        return Result.success(gwRail);
     }
 
     @Override
     @Transactional
     public Result deleteRail(Long railId) {
-        return null;
+        GwRail gwRail=getById(railId);
+        Assert.notNull(gwRail,"找不到该围栏");
+        //删除坐标位置
+        gwRailPositionService.remove(new QueryWrapper<GwRailPosition>().eq("rail_id",railId));
+        //删除围栏
+        removeById(railId);
+        return Result.success(null);
     }
 }

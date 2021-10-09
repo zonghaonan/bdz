@@ -48,7 +48,8 @@ public class GwPrefabsServiceImpl extends ServiceImpl<GwPrefabsMapper, GwPrefabs
         GwUser gwUser=gwUserService.getById(gwPrefabs.getUserId());
         Assert.notNull(gwUser,"找不到该用户");
         save(gwPrefabs);
-        return Result.success(gwPrefabs);
+        GwPrefabs gwPrefabs1=getById(gwPrefabs.getPrefabId());
+        return Result.success(gwPrefabs1);
     }
 
     @Override
