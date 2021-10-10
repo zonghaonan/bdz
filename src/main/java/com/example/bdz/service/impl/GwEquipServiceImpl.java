@@ -129,6 +129,12 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
     @Override
     public Result getEquipBadList() {
         List<GwEquip> gwEquipList=list(new QueryWrapper<GwEquip>().eq("status",1));
+        for (GwEquip gwEquip : gwEquipList) {
+            GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
+            gwEquip.setAreaName(gwArea.getAreaName());
+            GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
+            gwEquip.setTypeName(gwType.getTypeName());
+        }
         return Result.success(gwEquipList);
     }
 
