@@ -128,14 +128,15 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
     //获取资产故障列表接口
     @Override
     public Result getEquipBadList() {
-        List<GwEquip> gwEquipList=list(new QueryWrapper<GwEquip>().eq("status",1));
-        for (GwEquip gwEquip : gwEquipList) {
+        Page<GwEquip> gwEquipPage=page(getPage(),
+                new QueryWrapper<GwEquip>().eq("status",1));
+        for (GwEquip gwEquip : gwEquipPage.getRecords()) {
             GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
             gwEquip.setAreaName(gwArea.getAreaName());
             GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
             gwEquip.setTypeName(gwType.getTypeName());
         }
-        return Result.success(gwEquipList);
+        return Result.success(gwEquipPage);
     }
 
 

@@ -16,7 +16,7 @@ public interface GwPrefabsService extends IService<GwPrefabs> {
 
     Result info(Long prefabId);
 
-    Result getPrefabList(Long userId, String prefabName);
+    Result getPrefabList(Long userId, String prefabName, String type);
 
     Result addPrefab(GwPrefabs gwPrefabs);
 

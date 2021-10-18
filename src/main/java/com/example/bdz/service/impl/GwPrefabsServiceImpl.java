@@ -39,9 +39,10 @@ public class GwPrefabsServiceImpl extends ServiceImpl<GwPrefabsMapper, GwPrefabs
     }
 
     @Override
-    public Result getPrefabList(Long userId, String prefabName) {
+    public Result getPrefabList(Long userId, String prefabName, String type) {
         List<GwPrefabs> gwPrefabs=list(new QueryWrapper<GwPrefabs>()
                 .eq(StrUtil.isNotBlank(prefabName),"prefab_name",prefabName)
+                .eq(StrUtil.isNotBlank(type),"type",type)
                 .eq("user_id",userId));
         return Result.success(gwPrefabs);
     }
@@ -50,8 +51,8 @@ public class GwPrefabsServiceImpl extends ServiceImpl<GwPrefabsMapper, GwPrefabs
     public Result addPrefab(GwPrefabs gwPrefabs) {
         GwUser gwUser=gwUserService.getById(gwPrefabs.getUserId());
         Assert.notNull(gwUser,"找不到该用户");
-        //校验邮箱
-        if(!verifyUrl(gwPrefabs.getUrl())){
+        //校验推流地址
+        if(gwPrefabs.getUrl()!=null&&!verifyUrl(gwPrefabs.getUrl())){
             return Result.fail(ErrorCode.INVALIDPARAM.code(),"推流地址格式不正确",null);
         }
         save(gwPrefabs);
@@ -68,7 +69,7 @@ public class GwPrefabsServiceImpl extends ServiceImpl<GwPrefabsMapper, GwPrefabs
     }
     //邮箱校验
     boolean verifyUrl(String url){
-        String check = "^(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$";
+        String check = "^(https?|ftp|file|rtmp)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$";
         Pattern regex = Pattern.compile(check);
         Matcher matcher = regex.matcher(url);
         return matcher.matches();

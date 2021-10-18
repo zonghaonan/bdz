@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     LoginSuccessHandler successHandler;
     @Autowired
     UserLogoutSuccessHandler logoutSuccessHandler;
-    @Autowired
-    CaptchaFilter captchaFilter;
+//    @Autowired
+//    CaptchaFilter captchaFilter;
     @Autowired
     JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //异常处理器
         http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).accessDeniedHandler(jwtAccessDeniedHandler);
         //配置自定义过滤器
-        http.addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilter(jwtAuthenticationFilter());
     }
 

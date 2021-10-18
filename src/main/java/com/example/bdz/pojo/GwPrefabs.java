@@ -35,6 +35,9 @@ public class GwPrefabs implements Serializable {
     @NotBlank(message = "物体名称不能为空")
     private String prefabName;
 
+    @ApiModelProperty(value = "物体类型")
+    private String type;
+
     @ApiModelProperty(value = "用户id")
     @NotNull(message = "用户不能为空")
     private Long userId;

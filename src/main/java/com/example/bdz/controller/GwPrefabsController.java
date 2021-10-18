@@ -32,8 +32,8 @@ public class GwPrefabsController {
     @ApiOperation("获取用户物体列表接口")
     @PreAuthorize("hasAuthority('gw:prefabs:list')")
     @GetMapping("/list/{userId}")
-    public Result list(@PathVariable("userId") Long userId,String prefabName){
-        return gwPrefabsService.getPrefabList(userId,prefabName);
+    public Result list(@PathVariable("userId") Long userId,String prefabName,String type){
+        return gwPrefabsService.getPrefabList(userId,prefabName,type);
     }
     @ApiOperation("添加物体接口")
     @PreAuthorize("hasAuthority('gw:prefabs:save')")
