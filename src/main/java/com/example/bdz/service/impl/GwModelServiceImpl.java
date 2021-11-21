@@ -38,7 +38,6 @@ public class GwModelServiceImpl extends ServiceImpl<GwModelMapper, GwModel> impl
     public Result info(Integer modelId) {
         GwModel gwModel = getById(modelId);
         Assert.notNull(gwModel,"找不到该设备类别");
-//        gwModel.setAmount(gwOilfilledTransformerService.count(new QueryWrapper<GwOilfilledTransformer>().eq("model_id",gwModel.getModelId())));
         return Result.success(gwModel);
     }
 

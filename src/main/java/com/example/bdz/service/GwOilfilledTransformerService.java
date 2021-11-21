@@ -1,9 +1,8 @@
 package com.example.bdz.service;
 
-import com.example.bdz.common.lang.Result;
-import com.example.bdz.pojo.GwModel;
-import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.bdz.common.lang.Result;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 
 /**
  * <p>
@@ -15,13 +14,16 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GwOilfilledTransformerService extends IService<GwOilfilledTransformer> {
 
-    GwModel getByOftName(String modelName);
+    GwOilfilledTransformer getByOftId(Long id);
 
     Result info(Long id);
 
-    Result getModelList(Long id);
+    Result getOftList(Long id);
 
     Result addOft(GwOilfilledTransformer gwOilfilledTransformer);
 
     Result updateOft(Long id, GwOilfilledTransformer gwOilfilledTransformer);
+
+    Result deleteOft(Long id);
+
 }

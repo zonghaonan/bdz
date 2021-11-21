@@ -25,7 +25,7 @@ public class GwOilfilledTransformerController extends BaseController {
     @Autowired
     GwOilfilledTransformerService gwOilfilledTransformerService;
     @ApiOperation("根据id获取油浸式变压器接口")
-    @PreAuthorize("hasAuthority('gw:model:oilfilledtransformer:list')")
+    @PreAuthorize("hasAuthority('gw:model:oft:list')")
     @GetMapping("/info/{Id}")
     public Result info(@PathVariable("Id") Long id){
         return gwOilfilledTransformerService.info(id);
@@ -35,21 +35,28 @@ public class GwOilfilledTransformerController extends BaseController {
     @PreAuthorize("hasAuthority('gw:model:oft:list')")
     @GetMapping("/list")
     public Result list(Long id){
-        return gwOilfilledTransformerService.getModelList(id);
+        return gwOilfilledTransformerService.getOftList(id);
     }
 
     @ApiOperation("添加设备种类接口")
-    @PreAuthorize("hasAuthority('gw:model:save')")
+    @PreAuthorize("hasAuthority('gw:model:oft:save')")
     @PostMapping("/save")
     public Result save(@Validated @RequestBody GwOilfilledTransformer gwOilfilledTransformer){
         return gwOilfilledTransformerService.addOft(gwOilfilledTransformer);
     }
 
     @ApiOperation("更新类别接口")
-    @PreAuthorize("hasAuthority('gw:model:update')")
+    @PreAuthorize("hasAuthority('gw:model:oft:update')")
     @PostMapping("/update/{id}")
     public Result update(@PathVariable("id") Long id,@Validated @RequestBody GwOilfilledTransformer gwOilfilledTransformer) {
         return gwOilfilledTransformerService.updateOft(id, gwOilfilledTransformer);
+    }
+
+    @ApiOperation("删除资产接口")
+    @PreAuthorize("hasAuthority('gw:model:oft:delete')")
+    @PostMapping("/delete/{id}")
+    public Result delete(@PathVariable("id") Long id){
+        return gwOilfilledTransformerService.deleteOft(id);
     }
 }
 
