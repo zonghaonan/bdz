@@ -3,14 +3,14 @@ package com.example.bdz.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
+import com.example.bdz.mapper.GwEquipMapper;
 import com.example.bdz.pojo.GwArea;
 import com.example.bdz.pojo.GwEquip;
-import com.example.bdz.mapper.GwEquipMapper;
 import com.example.bdz.pojo.GwType;
 import com.example.bdz.service.GwAreaService;
 import com.example.bdz.service.GwEquipService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.service.GwTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,6 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
@@ -66,7 +64,7 @@ public class GwEquipServiceImpl extends ServiceImpl<GwEquipMapper, GwEquip> impl
                         .eq(areaId!=0,"area_id",areaId)
                         .eq(typeId!=0,"type_id",typeId));
         for (GwEquip gwEquip : gwEquipPage.getRecords()) {
-            GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());
+            GwArea gwArea=gwAreaService.getById(gwEquip.getAreaId());   //获取equip表中对应areaid的Area字段
             gwEquip.setAreaName(gwArea.getAreaName());
             GwType gwType=gwTypeService.getById(gwEquip.getTypeId());
             gwEquip.setTypeName(gwType.getTypeName());

@@ -42,7 +42,8 @@ public class GenerateCode {
         dsc.setUrl("jdbc:mysql://localhost:3306/bdz?useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123456");
+        //修改成了本人的root密码
+        dsc.setPassword("551551");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
         //3、包的配置
@@ -56,7 +57,7 @@ public class GenerateCode {
         mpg.setPackageInfo(pc);
         //4、策略配置
         StrategyConfig sc = new StrategyConfig();
-        sc.setInclude("gw_rail_position");//设置要映射的表名
+        sc.setInclude("gw_drytype_transformer");//设置要映射的表名
         sc.setNaming(NamingStrategy.underline_to_camel);
         sc.setColumnNaming(NamingStrategy.underline_to_camel);
         sc.setEntityLombokModel(true);//自动lombok
