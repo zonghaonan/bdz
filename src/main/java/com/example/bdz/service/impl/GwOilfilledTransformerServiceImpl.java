@@ -52,11 +52,8 @@ public class GwOilfilledTransformerServiceImpl extends ServiceImpl<GwOilfilledTr
     @Transactional    //加入 @Transactional 注解，使用默认配置，抛出异常之后，事务会自动回滚，数据不会插入到数据库
     //添加设备 添加设备时要使得类别<model>表里面的amount加一
     public Result addOft(GwOilfilledTransformer gwOilfilledTransformer) {
-        GwOilfilledTransformer oft = getByOftId(gwOilfilledTransformer.getId());
-        if (oft != null) {
-            return Result.fail("该设备已存在");
-        }
-            save(gwOilfilledTransformer);
+
+        save(gwOilfilledTransformer);
         //修改并更新一下model表
         GwModel gwModel=gwModelService.getById(gwOilfilledTransformer.getModelId());
         //添加一条设备数据后对应类别的总数加一
@@ -78,14 +75,8 @@ public class GwOilfilledTransformerServiceImpl extends ServiceImpl<GwOilfilledTr
           GwOilfilledTransformer preGwOft = getById(id);
           Assert.notNull(preGwOft,"找不到该资产");
           //不为空则继续执行
-          //如果俩equip_id相等则说明设备是一样的，提示已存在
-          if(!preGwOft.getEquipId().equals(gwOilfilledTransformer.getEquipId())){
-              GwOilfilledTransformer oft=getByOftName(gwOilfilledTransformer.getEquipId());
-              if(oft!=null){
-                  return Result.fail("该资产已存在");
-              }
-          }
-          gwOilfilledTransformer.setId(id);
+
+          gwOilfilledTransformer.setEquipId(id);
           updateById(gwOilfilledTransformer);
           return Result.success(gwOilfilledTransformer);
     }

@@ -25,9 +25,9 @@ public class GwModelController {
     GwModelService gwModelService;
     @ApiOperation("根据id获取类别接口")
     @PreAuthorize("hasAuthority('gw:model:list')")
-    @GetMapping("/info/{modelId}")
-    public Result info(@PathVariable("modelId") Integer modelId){
-        return gwModelService.info(modelId);
+    @GetMapping("/info/{modelName}")
+    public Result info(@PathVariable("modelName") String modelName){
+        return gwModelService.info(modelName);
     }
 
     @ApiOperation("获取设备种类列表接口")
@@ -51,31 +51,5 @@ public class GwModelController {
         return gwModelService.updateModel(modelId,gwModel);
     }
 
-//    @ApiOperation("查看类别设备接口")
-////    @PreAuthorize("hasAuthority('gw:model:show')")                         //数据库menu表还未添加
-////    @PostMapping("/update/{modelId}")
-////    public Result show(@PathVariable("modelId") Long modelId,@Validated @RequestBody GwModel gwModel){
-////        return gwModelService.updateModel(modelId,gwModel);
-////    }
-
-
-
-
-
-
-
-//    @ApiOperation("删除资产接口")
-//    @PreAuthorize("hasAuthority('gw:equip:delete')")
-//    @PostMapping("/delete/{equipId}")
-//    public Result delete(@PathVariable("equipId") Long equipId){      //模型种类是特定存在的    不能删除
-//        return gwEquipService.deleteEquip(equipId);
-//    }
-
-//    @ApiOperation("获取资产故障列表接口")
-//    @PreAuthorize("hasAuthority('gw:equip:badlist')")      //没有这个功能
-//    @GetMapping("/badlist")
-//    public Result badList(){
-//        return gwEquipService.getEquipBadList();
-//}
 }
 

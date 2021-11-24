@@ -35,8 +35,8 @@ public class GwModelServiceImpl extends ServiceImpl<GwModelMapper, GwModel> impl
 
     //根据id获取类别
     @Override
-    public Result info(Integer modelId) {
-        GwModel gwModel = getById(modelId);
+    public Result info(String modelName) {
+        GwModel gwModel = getByModelName(modelName);
         Assert.notNull(gwModel,"找不到该设备类别");
         return Result.success(gwModel);
     }

@@ -16,7 +16,7 @@ public interface GwModelService extends IService<GwModel> {
 
     GwModel getByModelName(String typeName);
 
-    Result info(Integer modelId);
+    Result info(String modelName);
 
     Result getModelList(String modelName);
 
