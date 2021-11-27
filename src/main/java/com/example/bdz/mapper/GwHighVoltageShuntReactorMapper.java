@@ -1,6 +1,6 @@
 package com.example.bdz.mapper;
 
-import com.example.bdz.pojo.GwDrytypeTransformer;
+import com.example.bdz.pojo.GwHighVoltageShuntReactor;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zhn
  * @since 2021-11-27
  */
-public interface GwDrytypeTransformerMapper extends BaseMapper<GwDrytypeTransformer> {
+public interface GwHighVoltageShuntReactorMapper extends BaseMapper<GwHighVoltageShuntReactor> {
 
 }

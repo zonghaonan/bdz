@@ -2,7 +2,7 @@ package com.example.bdz.controller;
 
 
 import com.example.bdz.common.lang.Result;
-import com.example.bdz.service.GwDrytypeTransformerService;
+import com.example.bdz.service.GwHighVoltageShuntReactorService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,17 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-11-27
  */
 @RestController
-@RequestMapping("gw/model/dtt")
-public class GwDrytypeTransformerController extends BaseController{
+@RequestMapping("gw/model/hvsr")
+public class GwHighVoltageShuntReactorController extends BaseController {
     @Autowired
-    GwDrytypeTransformerService gwDrytypeTransformerService;
+    GwHighVoltageShuntReactorService gwHighVoltageShuntReactorService;
 
-    @ApiOperation("获取油浸式变压器列表接口")
-    @PreAuthorize("hasAuthority('gw:model:dtt:list')")
+    @ApiOperation("获取高压并联电抗器列表")
+    @PreAuthorize("hasAuthority('gw:model:hvsr:list')")
     @GetMapping("/list")
-    public Result list(Long id){
-        return gwDrytypeTransformerService.getDttList(id);
-    }
+    public Result list(Long id){return gwHighVoltageShuntReactorService.getHvsrList(id);}
 
 }
 
