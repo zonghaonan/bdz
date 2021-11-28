@@ -53,16 +53,13 @@ public class GwHighVoltageShuntReactor implements Serializable {
     private Double ratedVoltageMid;
 
     @ApiModelProperty(value = "额定容量")
-    private Double 
-ratedCapacity;
+    private Double ratedCapacity;
 
     @ApiModelProperty(value = "额定电流")
-    private Double 
-ratedCurrent;
+    private Double ratedCurrent;
 
     @ApiModelProperty(value = "额定电抗")
-    private Double 
-ratedReactance;
+    private Double ratedReactance;
 
     @ApiModelProperty(value = "额定电抗容许偏差")
     private String allowableDeviationOfRatedReactance;
