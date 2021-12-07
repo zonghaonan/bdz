@@ -34,8 +34,10 @@ public class GwDcPostInsulatorController extends BaseController{
     }
 
     @ApiOperation("获取直流支柱绝缘子列表接口")
-    @PreAuthorize("hasAuthority('gw:model:dcpi:list')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @GetMapping("/list")
-    public Result List(){return gwDcPostInsulatorService.getDcpiList();}
+    public Result List(){
+        return gwDcPostInsulatorService.getDcpiList();
+    }
 }
 

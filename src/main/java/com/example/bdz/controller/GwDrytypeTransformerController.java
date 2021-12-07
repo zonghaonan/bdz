@@ -26,13 +26,13 @@ public class GwDrytypeTransformerController extends BaseController{
     @Autowired
     GwDrytypeTransformerService gwDrytypeTransformerService;
     @ApiOperation("根据id获取油浸式变压器接口")
-    @PreAuthorize("hasAuthority('gw:model:dtt:list')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @GetMapping("/info/{Id}")
     public Result info(@PathVariable("Id") Long id){
         return gwDrytypeTransformerService.info(id);
     }
     @ApiOperation("获取油浸式变压器列表接口")
-    @PreAuthorize("hasAuthority('gw:model:dtt:list')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @GetMapping("/list")
     public Result list(){
         return gwDrytypeTransformerService.getDttList();
