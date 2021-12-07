@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bdz.common.lang.Const;
 import com.example.bdz.common.lang.Result;
+import com.example.bdz.pojo.GwEquip;
 import com.example.bdz.pojo.GwRole;
 import com.example.bdz.mapper.GwRoleMapper;
 import com.example.bdz.pojo.GwRoleMenu;
@@ -84,6 +85,10 @@ public class GwRoleServiceImpl extends ServiceImpl<GwRoleMapper, GwRole> impleme
     @Override
     @Transactional
     public Result deleteRole(Integer id) {
+        int count = gwUserRoleService.count(new QueryWrapper<GwUserRole>().eq("role_id", id));
+        if(count>0){
+            return Result.fail("该角色存在用户");
+        }
         //删除缓存（先删除缓存，不然删除中间表之后会找不到对应的id）
         gwUserService.clearUserAuthorityInfoByRoleId(id);
         //删除中间表

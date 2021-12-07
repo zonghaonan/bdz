@@ -24,32 +24,32 @@ public class GwModelController {
     @Autowired
     GwModelService gwModelService;
     @ApiOperation("根据id获取类别接口")
-    @PreAuthorize("hasAuthority('gw:model:list')")
-    @GetMapping("/info/{modelName}")
-    public Result info(@PathVariable("modelName") String modelName){
-        return gwModelService.info(modelName);
+    @PreAuthorize("hasAuthority('gw:scene')")
+    @GetMapping("/info/{id}")
+    public Result info(@PathVariable("id") Integer id){
+        return gwModelService.info(id);
     }
 
     @ApiOperation("获取设备种类列表接口")
-    @PreAuthorize("hasAuthority('gw:model:list')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @GetMapping("/list")
     public Result list(String modelName){
         return gwModelService.getModelList(modelName);
     }
 
-    @ApiOperation("添加设备种类接口")
-    @PreAuthorize("hasAuthority('gw:model:save')")
-    @PostMapping("/save")
-    public Result save(@Validated @RequestBody GwModel gwModel){
-        return gwModelService.addModel(gwModel);
-    }
-
-    @ApiOperation("更新类别接口")
-    @PreAuthorize("hasAuthority('gw:model:update')")
-    @PostMapping("/update/{modelId}")
-    public Result update(@PathVariable("modelId") Integer modelId,@Validated @RequestBody GwModel gwModel){
-        return gwModelService.updateModel(modelId,gwModel);
-    }
+//    @ApiOperation("添加设备种类接口")
+//    @PreAuthorize("hasAuthority('gw:model:save')")
+//    @PostMapping("/save")
+//    public Result save(@Validated @RequestBody GwModel gwModel){
+//        return gwModelService.addModel(gwModel);
+//    }
+//
+//    @ApiOperation("更新类别接口")
+//    @PreAuthorize("hasAuthority('gw:model:update')")
+//    @PostMapping("/update/{modelId}")
+//    public Result update(@PathVariable("modelId") Integer modelId,@Validated @RequestBody GwModel gwModel){
+//        return gwModelService.updateModel(modelId,gwModel);
+//    }
 
 }
 

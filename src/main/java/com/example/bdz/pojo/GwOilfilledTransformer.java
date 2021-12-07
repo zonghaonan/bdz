@@ -227,4 +227,7 @@ public class GwOilfilledTransformer implements Serializable {
 
     @ApiModelProperty(value = "效率")
     private Double efficiency;
+
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

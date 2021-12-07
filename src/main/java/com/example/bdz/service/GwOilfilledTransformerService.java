@@ -18,7 +18,7 @@ public interface GwOilfilledTransformerService extends IService<GwOilfilledTrans
 
     Result info(Long id);
 
-    Result getOftList(Long id);
+    Result getOftList();
 
     Result addOft(GwOilfilledTransformer gwOilfilledTransformer);
 

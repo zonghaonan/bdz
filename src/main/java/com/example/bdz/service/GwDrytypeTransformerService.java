@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GwDrytypeTransformerService extends IService<GwDrytypeTransformer> {
 
-    Result getDttList(Long id);
+    Result getDttList();
 
+    Result info(Long id);
 }

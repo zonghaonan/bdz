@@ -35,8 +35,8 @@ public class GwModelServiceImpl extends ServiceImpl<GwModelMapper, GwModel> impl
 
     //根据id获取类别
     @Override
-    public Result info(String modelName) {
-        GwModel gwModel = getByModelName(modelName);
+    public Result info(Integer id) {
+        GwModel gwModel = getById(id);
         Assert.notNull(gwModel,"找不到该设备类别");
         return Result.success(gwModel);
     }
@@ -47,7 +47,9 @@ public class GwModelServiceImpl extends ServiceImpl<GwModelMapper, GwModel> impl
     @Override
     public Result getModelList(String modelName) {
 
-        List<GwModel> gwModels= list(new QueryWrapper<GwModel>().like(StrUtil.isNotBlank(modelName),"model_name",modelName));
+        List<GwModel> gwModels= list(new QueryWrapper<GwModel>()
+                .like(StrUtil.isNotBlank(modelName),"model_name",modelName)
+                .gt("amount",0));
         return Result.success(gwModels);
     }
 

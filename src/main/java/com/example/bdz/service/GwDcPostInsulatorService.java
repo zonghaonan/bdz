@@ -14,5 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GwDcPostInsulatorService extends IService<GwDcPostInsulator> {
 
-    Result getDcpiList(Long id);
+    Result getDcpiList();
+
+    Result info(Long id);
 }

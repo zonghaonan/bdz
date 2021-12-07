@@ -42,7 +42,7 @@ public class GwOilfilledTransformerServiceImpl extends ServiceImpl<GwOilfilledTr
     }
 
     @Override
-    public Result getOftList(Long id) {
+    public Result getOftList() {
         List<GwOilfilledTransformer> gwOilfilledTransformers = list(new QueryWrapper<GwOilfilledTransformer>());
         return Result.success(gwOilfilledTransformers);
     }

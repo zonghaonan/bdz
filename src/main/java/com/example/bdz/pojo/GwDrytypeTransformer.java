@@ -121,5 +121,7 @@ public class GwDrytypeTransformer implements Serializable {
     @ApiModelProperty(value = "噪声水平（100%强迫冷风）")
     private Double forcedColdWindNoiseLevel;
 
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 
 }
