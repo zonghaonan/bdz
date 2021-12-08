@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwPorcelainColumnCircuitBreakerService extends IService<GwPorcelainColumnCircuitBreaker> {
 
     Result getPccbList(Long id);
+
+    Result info(Long id);
 }

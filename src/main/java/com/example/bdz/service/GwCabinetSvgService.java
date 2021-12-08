@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwCabinetSvgService extends IService<GwCabinetSvg> {
 
     Result getCsList(Long id);
+
+    Result info(Long id);
 }

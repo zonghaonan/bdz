@@ -15,4 +15,7 @@ import com.example.bdz.pojo.GwCombinedElectricalApparatusGis;
 public interface GwCombinedElectricalApparatusGisService extends IService<GwCombinedElectricalApparatusGis> {
 
     Result getGisList(Long id);
+
+
+    Result info(Long id);
 }

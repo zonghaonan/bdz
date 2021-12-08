@@ -40,5 +40,6 @@ public class GwNeutralPointEquipment implements Serializable {
     @ApiModelProperty(value = "电压")
     private Double voltage;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwPorcelainColumnCircuitBreakerMapper;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.pojo.GwPorcelainColumnCircuitBreaker;
 import com.example.bdz.service.GwPorcelainColumnCircuitBreakerService;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,13 @@ public class GwPorcelainColumnCircuitBreakerServiceImpl extends ServiceImpl<GwPo
     public Result getPccbList(Long id) {
         List<GwPorcelainColumnCircuitBreaker> gwPorcelainColumnCircuitBreakers = list(new QueryWrapper<GwPorcelainColumnCircuitBreaker>());
         return Result.success(gwPorcelainColumnCircuitBreakers);
+    }
+
+
+    @Override
+    public Result info(Long id) {
+        GwPorcelainColumnCircuitBreaker gwPorcelainColumnCircuitBreaker = getById(id);
+        org.springframework.util.Assert.notNull(gwPorcelainColumnCircuitBreaker,"找不到该设备");
+        return Result.success(gwPorcelainColumnCircuitBreaker);
     }
 }

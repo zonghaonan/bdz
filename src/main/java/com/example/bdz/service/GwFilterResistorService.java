@@ -14,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GwFilterResistorService extends IService<GwFilterResistor> {
     Result getFresList(Long id);
+
+    Result info(Long id);
 }

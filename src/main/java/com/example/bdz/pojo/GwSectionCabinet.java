@@ -124,5 +124,6 @@ public class GwSectionCabinet implements Serializable {
     @ApiModelProperty(value = "柜壁厚度")
     private String cabinetWallThickness;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

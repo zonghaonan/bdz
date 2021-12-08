@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwBusEquipmentCabinetService extends IService<GwBusEquipmentCabinet> {
 
     Result getBecList(Long id);
+
+    Result info(Long id);
 }

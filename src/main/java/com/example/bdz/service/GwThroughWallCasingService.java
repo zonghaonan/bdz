@@ -15,4 +15,6 @@ import com.example.bdz.pojo.GwThroughWallCasing;
 public interface GwThroughWallCasingService extends IService<GwThroughWallCasing> {
 
     Result getTwcList(Long id);
+
+    Result info(Long id);
 }

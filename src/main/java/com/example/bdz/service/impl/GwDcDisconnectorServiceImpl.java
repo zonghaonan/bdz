@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwDcDisconnectorMapper;
 import com.example.bdz.pojo.GwDcDisconnector;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwDcDisconnectorService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwDcDisconnectorServiceImpl extends ServiceImpl<GwDcDisconnectorMap
     public Result getDcdList(Long id) {
         List<GwDcDisconnector> gwDcDisconnectors = list(new QueryWrapper<GwDcDisconnector>());
         return Result.success(gwDcDisconnectors);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwDcDisconnector gwDcDisconnector = getById(id);
+        org.springframework.util.Assert.notNull(gwDcDisconnector,"找不到该设备");
+        return Result.success(gwDcDisconnector);
     }
 }

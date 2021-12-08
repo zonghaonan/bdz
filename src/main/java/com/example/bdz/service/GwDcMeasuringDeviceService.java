@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwDcMeasuringDeviceService extends IService<GwDcMeasuringDevice> {
 
     Result getDcmdList(Long id);
+
+    Result info(Long id);
 }

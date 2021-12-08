@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwPoleBusArresterInValveHallMapper;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.pojo.GwPoleBusArresterInValveHall;
 import com.example.bdz.service.GwPoleBusArresterInValveHallService;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,12 @@ public class GwPoleBusArresterInValveHallServiceImpl extends ServiceImpl<GwPoleB
     public Result getPbaList(Long id) {
         List<GwPoleBusArresterInValveHall> gwPoleBusArresterInValveHalls = list(new QueryWrapper<GwPoleBusArresterInValveHall>());
         return Result.success(gwPoleBusArresterInValveHalls);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwPoleBusArresterInValveHall gwPoleBusArresterInValveHall = getById(id);
+        org.springframework.util.Assert.notNull(gwPoleBusArresterInValveHall,"找不到该设备");
+        return Result.success(gwPoleBusArresterInValveHall);
     }
 }

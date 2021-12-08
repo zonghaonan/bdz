@@ -14,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GwFilterArresterService extends IService<GwFilterArrester> {
     Result getFaList(Long id);
+
+    Result info(Long id);
 }

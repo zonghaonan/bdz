@@ -64,5 +64,6 @@ public class GwConverterTransformer implements Serializable {
     @ApiModelProperty(value = "网侧绕组额定电压")
     private Integer ratedVoltageOfGridSideWinding;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

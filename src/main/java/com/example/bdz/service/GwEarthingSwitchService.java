@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwEarthingSwitchService extends IService<GwEarthingSwitch> {
 
     Result getEsList(Long id);
+
+    Result info(Long id);
 }

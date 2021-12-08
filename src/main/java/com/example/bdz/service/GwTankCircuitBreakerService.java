@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwTankCircuitBreakerService extends IService<GwTankCircuitBreaker> {
 
     Result getTcbList(Long id);
+
+    Result info(Long id);
 }

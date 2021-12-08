@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwCabinetSvgMapper;
 import com.example.bdz.pojo.GwCabinetSvg;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwCabinetSvgService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwCabinetSvgServiceImpl extends ServiceImpl<GwCabinetSvgMapper, GwC
     public Result getCsList(Long id) {
         List<GwCabinetSvg> gwCabinetSvgs = list(new QueryWrapper<GwCabinetSvg>());
         return Result.success(gwCabinetSvgs);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwCabinetSvg gwCabinetSvg = getById(id);
+        org.springframework.util.Assert.notNull(gwCabinetSvg,"找不到该设备");
+        return Result.success(gwCabinetSvg);
     }
 }

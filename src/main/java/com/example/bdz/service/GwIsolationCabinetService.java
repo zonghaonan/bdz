@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwIsolationCabinetService extends IService<GwIsolationCabinet> {
 
     Result getIscList(Long id);
+
+    Result info(Long id);
 }

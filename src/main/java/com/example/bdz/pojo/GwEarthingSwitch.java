@@ -131,5 +131,6 @@ ratedCurrent;
     @ApiModelProperty(value = "无线电干扰电压")
     private String radioInterferenceVoltage;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

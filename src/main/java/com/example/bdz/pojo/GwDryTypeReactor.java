@@ -136,5 +136,6 @@ public class GwDryTypeReactor implements Serializable {
     @ApiModelProperty(value = "耐气候性能")
     private String weatherResistance;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

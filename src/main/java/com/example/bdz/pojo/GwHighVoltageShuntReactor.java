@@ -175,5 +175,6 @@ public class GwHighVoltageShuntReactor implements Serializable {
     @ApiModelProperty(value = "无线电干扰水平")
     private Double radioInterferenceLevel;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

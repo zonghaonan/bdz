@@ -64,5 +64,5 @@ public class GwStationPowerCabinet implements Serializable {
     @ApiModelProperty(value = "柜高")
     private Double cabinetHeight;
 
-
-}
+    @ApiModelProperty(value = "使用状况")
+    private int status;}

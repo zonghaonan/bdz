@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwVoltageTransformerService extends IService<GwVoltageTransformer> {
 
     Result getVtList(Long id);
+
+    Result info(Long id);
 }

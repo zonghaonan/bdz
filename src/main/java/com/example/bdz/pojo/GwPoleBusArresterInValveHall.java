@@ -70,5 +70,6 @@ public class GwPoleBusArresterInValveHall implements Serializable {
     @ApiModelProperty(value = "10ms方波能量吸收能力")
     private Double squareWaveEnergyAbsorptionCapacity;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

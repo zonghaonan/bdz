@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwNeutralPointEquipmentService extends IService<GwNeutralPointEquipment> {
 
     Result getNpeList(Long id);
+
+    Result info(Long id);
 }

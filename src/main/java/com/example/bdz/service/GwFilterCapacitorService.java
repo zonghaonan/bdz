@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwFilterCapacitorService extends IService<GwFilterCapacitor> {
 
     Result getFcapList(Long id);
+
+    Result info(Long id);
 }

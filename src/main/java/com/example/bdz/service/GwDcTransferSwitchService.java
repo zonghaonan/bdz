@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwDcTransferSwitchService extends IService<GwDcTransferSwitch> {
 
     Result getDctsList(Long id);
+
+    Result info(Long id);
 }

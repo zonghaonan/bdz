@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwDcWallBushingService extends IService<GwDcWallBushing> {
 
     Result getDcwbList(Long id);
+
+    Result info(Long id);
 }

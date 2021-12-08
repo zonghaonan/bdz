@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwCombinedElectricalApparatusHgisService extends IService<GwCombinedElectricalApparatusHgis> {
 
     Result getHgisList(Long id);
+
+    Result info(Long id);
 }

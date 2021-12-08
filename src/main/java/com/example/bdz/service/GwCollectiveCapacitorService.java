@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwCollectiveCapacitorService extends IService<GwCollectiveCapacitor> {
 
     Result getCcList(Long id);
+
+    Result info(Long id);
 }

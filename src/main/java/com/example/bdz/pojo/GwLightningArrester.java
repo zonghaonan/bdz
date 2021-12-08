@@ -148,5 +148,6 @@ public class GwLightningArrester implements Serializable {
     @ApiModelProperty(value = "安全系数")
     private Double safetyFactor;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwTankCircuitBreakerMapper;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.pojo.GwTankCircuitBreaker;
 import com.example.bdz.service.GwTankCircuitBreakerService;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,12 @@ public class GwTankCircuitBreakerServiceImpl extends ServiceImpl<GwTankCircuitBr
     public Result getTcbList(Long id) {
         List<GwTankCircuitBreaker> gwTankCircuitBreakers = list(new QueryWrapper<GwTankCircuitBreaker>());
         return Result.success(gwTankCircuitBreakers);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwTankCircuitBreaker gwTankCircuitBreaker = getById(id);
+        org.springframework.util.Assert.notNull(gwTankCircuitBreaker,"找不到该设备");
+        return Result.success(gwTankCircuitBreaker);
     }
 }

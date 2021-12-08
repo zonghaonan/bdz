@@ -55,5 +55,6 @@ public class GwZeroFluxCurrentTransformer implements Serializable {
     @ApiModelProperty(value = "额定二次测量比率")
     private String ratedSecondaryMeasurementRatio;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

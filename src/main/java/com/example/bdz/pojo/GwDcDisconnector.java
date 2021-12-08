@@ -43,5 +43,6 @@ public class GwDcDisconnector implements Serializable {
     @ApiModelProperty(value = "确定爬电距离的电压")
     private Double voltageForDeterminingCreepageDistance;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

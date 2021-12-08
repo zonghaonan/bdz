@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwLightningArresterService extends IService<GwLightningArrester> {
 
     Result getLaList(Long id);
+
+    Result info(Long id);
 }

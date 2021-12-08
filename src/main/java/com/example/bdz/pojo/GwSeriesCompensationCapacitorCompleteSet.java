@@ -61,5 +61,6 @@ public class GwSeriesCompensationCapacitorCompleteSet implements Serializable {
     @ApiModelProperty(value = "允许能耗水平")
     private Double allowableEnergyConsumptionLevel;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

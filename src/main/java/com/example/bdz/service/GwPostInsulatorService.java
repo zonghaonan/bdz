@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwPostInsulatorService extends IService<GwPostInsulator> {
 
     Result getPiList(Long id);
+
+    Result info(Long id);
 }

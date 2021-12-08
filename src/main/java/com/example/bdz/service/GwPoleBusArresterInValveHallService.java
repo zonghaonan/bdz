@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwPoleBusArresterInValveHallService extends IService<GwPoleBusArresterInValveHall> {
 
     Result getPbaList(Long id);
+
+    Result info(Long id);
 }

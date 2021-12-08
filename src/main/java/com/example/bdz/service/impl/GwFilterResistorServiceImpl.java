@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwFilterResistorMapper;
 import com.example.bdz.pojo.GwFilterResistor;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwFilterResistorService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwFilterResistorServiceImpl extends ServiceImpl<GwFilterResistorMap
     public Result getFresList(Long id) {
         List<GwFilterResistor> gwFilterResistors = list(new QueryWrapper<GwFilterResistor>());
         return Result.success(gwFilterResistors);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwFilterResistor gwFilterResistor = getById(id);
+        org.springframework.util.Assert.notNull(gwFilterResistor,"找不到该设备");
+        return Result.success(gwFilterResistor);
     }
 }

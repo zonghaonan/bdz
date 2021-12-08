@@ -117,5 +117,6 @@ temperatureRiseEquipmentClamp;
     @ApiModelProperty(value = "持续时间（短时热电流耐受及持续时间）")
     private Double duration;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

@@ -103,5 +103,6 @@ public class GwDcWallBushing implements Serializable {
     @ApiModelProperty(value = "垂直方向端子拉力")
     private Double terminalTensionInVerticalDirection;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

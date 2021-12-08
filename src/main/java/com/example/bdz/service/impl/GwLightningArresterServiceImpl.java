@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwLightningArresterMapper;
 import com.example.bdz.pojo.GwLightningArrester;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwLightningArresterService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwLightningArresterServiceImpl extends ServiceImpl<GwLightningArres
     public Result getLaList(Long id) {
         List<GwLightningArrester> gwLightningArresters = list(new QueryWrapper<GwLightningArrester>());
         return Result.success(gwLightningArresters);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwLightningArrester gwLightningArrester = getById(id);
+        org.springframework.util.Assert.notNull(gwLightningArrester,"找不到该设备");
+        return Result.success(gwLightningArrester);
     }
 }
