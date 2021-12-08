@@ -24,26 +24,26 @@ public class GwPrefabsController {
     @Autowired
     GwPrefabsService gwPrefabsService;
     @ApiOperation("根据id获取物体信息接口")
-    @PreAuthorize("hasAuthority('gw:prefabs:list')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @GetMapping("/info/{prefabId}")
     public Result info(@PathVariable("prefabId") Long prefabId){
         return gwPrefabsService.info(prefabId);
     }
     @ApiOperation("获取用户物体列表接口")
-    @PreAuthorize("hasAuthority('gw:prefabs:list')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @GetMapping("/list/{userId}")
     public Result list(@PathVariable("userId") Long userId,String prefabName,String type){
         return gwPrefabsService.getPrefabList(userId,prefabName,type);
     }
     @ApiOperation("添加物体接口")
-    @PreAuthorize("hasAuthority('gw:prefabs:save')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @PostMapping("/save")
     public Result save(@Validated @RequestBody GwPrefabs gwPrefabs){
         return gwPrefabsService.addPrefab(gwPrefabs);
     }
 
     @ApiOperation("删除物体接口")
-    @PreAuthorize("hasAuthority('gw:prefabs:delete')")
+    @PreAuthorize("hasAuthority('gw:scene')")
     @PostMapping("/delete/{prefabId}")
     public Result delete(@PathVariable("prefabId") Long prefabId){
         return gwPrefabsService.deletePrefab(prefabId);
