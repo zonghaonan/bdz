@@ -111,6 +111,10 @@ public class GwRoleServiceImpl extends ServiceImpl<GwRoleMapper, GwRole> impleme
         if(id==1||id==2){
             return Result.fail("该角色无法删除");
         }
+        int count = gwUserRoleService.count(new QueryWrapper<GwUserRole>().eq("role_id", id));
+        if(count>0){
+            return Result.fail("该角色存在用户");
+        }
         //删除中间表
         gwUserRoleService.remove(new QueryWrapper<GwUserRole>().eq("role_id",id));
         gwRoleMenuService.remove(new QueryWrapper<GwRoleMenu>().eq("role_id",id));
