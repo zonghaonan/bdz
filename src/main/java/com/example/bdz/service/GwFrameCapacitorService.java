@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwFrameCapacitorService extends IService<GwFrameCapacitor> {
 
     Result getFcList(Long id);
+
+    Result info(Long id);
 }

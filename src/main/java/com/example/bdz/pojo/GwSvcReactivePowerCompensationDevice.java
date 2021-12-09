@@ -76,5 +76,6 @@ public class GwSvcReactivePowerCompensationDevice implements Serializable {
     @ApiModelProperty(value = "开关频率")
     private String switchingFrequency;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwZeroFluxCurrentTransformerService extends IService<GwZeroFluxCurrentTransformer> {
 
     Result getZfctList(Long id);
+
+    Result info(Long id);
 }

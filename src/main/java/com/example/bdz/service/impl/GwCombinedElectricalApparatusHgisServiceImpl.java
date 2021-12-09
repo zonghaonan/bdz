@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwCombinedElectricalApparatusHgisMapper;
 import com.example.bdz.pojo.GwCombinedElectricalApparatusHgis;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwCombinedElectricalApparatusHgisService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwCombinedElectricalApparatusHgisServiceImpl extends ServiceImpl<Gw
     public Result getHgisList(Long id) {
         List<GwCombinedElectricalApparatusHgis> gwCombinedElectricalApparatusHgiss = list(new QueryWrapper<GwCombinedElectricalApparatusHgis>());
         return Result.success(gwCombinedElectricalApparatusHgiss);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwCombinedElectricalApparatusHgis gwCombinedElectricalApparatusHgis = getById(id);
+        org.springframework.util.Assert.notNull(gwCombinedElectricalApparatusHgis,"找不到该设备");
+        return Result.success(gwCombinedElectricalApparatusHgis);
     }
 }

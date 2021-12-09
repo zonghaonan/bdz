@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwCompleteAndSetgroundingTransformerService extends IService<GwCompleteAndSetgroundingTransformer> {
 
     Result getCastList(Long id);
+
+    Result info(Long id);
 }

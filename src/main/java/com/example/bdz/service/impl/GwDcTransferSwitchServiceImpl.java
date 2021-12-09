@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwDcTransferSwitchMapper;
 import com.example.bdz.pojo.GwDcTransferSwitch;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwDcTransferSwitchService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwDcTransferSwitchServiceImpl extends ServiceImpl<GwDcTransferSwitc
     public Result getDctsList(Long id) {
         List<GwDcTransferSwitch> gwDcTransferSwitches = list(new QueryWrapper<GwDcTransferSwitch>());
         return Result.success(gwDcTransferSwitches);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwDcTransferSwitch gwDcTransferSwitch = getById(id);
+        org.springframework.util.Assert.notNull(gwDcTransferSwitch,"找不到该设备");
+        return Result.success(gwDcTransferSwitch);
     }
 }

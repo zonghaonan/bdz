@@ -73,5 +73,6 @@ public class GwFilterArrester implements Serializable {
     @ApiModelProperty(value = "通用设计编号")
     private String generalDesignNum;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

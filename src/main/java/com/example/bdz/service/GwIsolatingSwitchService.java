@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwIsolatingSwitchService extends IService<GwIsolatingSwitch> {
 
     Result getIsList(Long id);
+
+    Result info(Long id);
 }

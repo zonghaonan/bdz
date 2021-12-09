@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwConverterValveService extends IService<GwConverterValve> {
 
     Result getCvList(Long id);
+
+    Result info(Long id);
 }

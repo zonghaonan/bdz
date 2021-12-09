@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwDcEarthingSwitchService extends IService<GwDcEarthingSwitch> {
 
     Result getDcesList(Long id);
+
+    Result info(Long id);
 }

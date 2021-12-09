@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwSvcReactivePowerCompensationDeviceService extends IService<GwSvcReactivePowerCompensationDevice> {
 
     Result getSvcList(Long id);
+
+    Result info(Long id);
 }

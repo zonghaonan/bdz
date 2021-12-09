@@ -73,5 +73,7 @@ public class GwCabinetSvg implements Serializable {
     @ApiModelProperty(value = "调度编码")
     private Double schedulingCode;
 
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 
 }

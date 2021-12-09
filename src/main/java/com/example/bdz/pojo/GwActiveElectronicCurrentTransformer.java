@@ -61,5 +61,6 @@ public class GwActiveElectronicCurrentTransformer implements Serializable {
     @ApiModelProperty(value = "低压元器件工频耐压")
     private Double powerFrequencyWithstandVoltageOfLowVoltageComponents;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

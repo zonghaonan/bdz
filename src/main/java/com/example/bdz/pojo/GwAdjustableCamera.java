@@ -91,5 +91,6 @@ public class GwAdjustableCamera implements Serializable {
     @ApiModelProperty(value = "发电机转动惯量")
     private Double momentOfInertiaOfGenerator;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

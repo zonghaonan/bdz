@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwOilImmersedReactorService extends IService<GwOilImmersedReactor> {
 
     Result getOirList(Long id);
+
+    Result info(Long id);
 }

@@ -61,5 +61,6 @@ public class GwFilterResistor implements Serializable {
     @ApiModelProperty(value = "爬距计算用电压")
     private Double voltageForCreepageCalculation;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

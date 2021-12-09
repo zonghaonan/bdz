@@ -15,4 +15,6 @@ import com.example.bdz.pojo.GwHighVoltageShuntReactor;
 public interface GwHighVoltageShuntReactorService extends IService<GwHighVoltageShuntReactor> {
 
     Result getHvsrList(Long id);
+
+    Result info(Long id);
 }

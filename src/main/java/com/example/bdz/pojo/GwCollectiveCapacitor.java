@@ -118,5 +118,6 @@ public class GwCollectiveCapacitor implements Serializable {
     @ApiModelProperty(value = "通用设备编号")
     private String generalEquipmentNumber;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

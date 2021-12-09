@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwActiveElectronicCurrentTransformerService extends IService<GwActiveElectronicCurrentTransformer> {
 
     Result getAectList(Long id);
+
+    Result info(Long id);
 }

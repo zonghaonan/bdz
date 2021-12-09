@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwDryTypeReactorService extends IService<GwDryTypeReactor> {
 
     Result getDtrList(Long id);
+
+    Result info(Long id);
 }

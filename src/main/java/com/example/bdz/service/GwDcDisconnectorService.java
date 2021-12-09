@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwDcDisconnectorService extends IService<GwDcDisconnector> {
 
     Result getDcdList(Long id);
+
+    Result info(Long id);
 }

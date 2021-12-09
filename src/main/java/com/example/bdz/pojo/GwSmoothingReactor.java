@@ -97,5 +97,6 @@ public class GwSmoothingReactor implements Serializable {
     @ApiModelProperty(value = "高压端对地")
     private Double highVoltageTerminalToGround;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

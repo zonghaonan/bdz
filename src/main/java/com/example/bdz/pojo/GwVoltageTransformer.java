@@ -208,5 +208,6 @@ public class GwVoltageTransformer implements Serializable {
     @ApiModelProperty(value = "期望寿命")
     private Double lifeExpectancy;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

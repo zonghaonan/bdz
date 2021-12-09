@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwCompleteAndSetgroundingTransformerMapper;
 import com.example.bdz.pojo.GwCompleteAndSetgroundingTransformer;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwCompleteAndSetgroundingTransformerService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwCompleteAndSetgroundingTransformerServiceImpl extends ServiceImpl
     public Result getCastList(Long id) {
         List<GwCompleteAndSetgroundingTransformer> gwCompleteAndSetgroundingTransformers = list(new QueryWrapper<GwCompleteAndSetgroundingTransformer>());
         return Result.success(gwCompleteAndSetgroundingTransformers);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwCompleteAndSetgroundingTransformer gwCompleteAndSetgroundingTransformer = getById(id);
+        org.springframework.util.Assert.notNull(gwCompleteAndSetgroundingTransformer,"找不到该设备");
+        return Result.success(gwCompleteAndSetgroundingTransformer);
     }
 }

@@ -232,5 +232,6 @@ public class GwElectromagneticCurrentTransformer implements Serializable {
     @ApiModelProperty(value = "预期寿命")
     private Double lifeExpectancy;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwNeutralPointEquipmentMapper;
 import com.example.bdz.pojo.GwNeutralPointEquipment;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwNeutralPointEquipmentService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwNeutralPointEquipmentServiceImpl extends ServiceImpl<GwNeutralPoi
     public Result getNpeList(Long id) {
         List<GwNeutralPointEquipment> gwNeutralPointEquipments = list(new QueryWrapper<GwNeutralPointEquipment>());
         return Result.success(gwNeutralPointEquipments);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwNeutralPointEquipment gwNeutralPointEquipment = getById(id);
+        org.springframework.util.Assert.notNull(gwNeutralPointEquipment,"找不到该设备");
+        return Result.success(gwNeutralPointEquipment);
     }
 }

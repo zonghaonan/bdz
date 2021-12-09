@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwOilImmersedReactorMapper;
 import com.example.bdz.pojo.GwOilImmersedReactor;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwOilImmersedReactorService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwOilImmersedReactorServiceImpl extends ServiceImpl<GwOilImmersedRe
     public Result getOirList(Long id) {
         List<GwOilImmersedReactor> gwOilImmersedReactors = list(new QueryWrapper<GwOilImmersedReactor>());
         return Result.success(gwOilImmersedReactors);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwOilImmersedReactor gwOilImmersedReactor = getById(id);
+        org.springframework.util.Assert.notNull(gwOilImmersedReactor,"找不到该设备");
+        return Result.success(gwOilImmersedReactor);
     }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwVoltageTransformerMapper;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.pojo.GwVoltageTransformer;
 import com.example.bdz.service.GwVoltageTransformerService;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,12 @@ public class GwVoltageTransformerServiceImpl extends ServiceImpl<GwVoltageTransf
     public Result getVtList(Long id) {
         List<GwVoltageTransformer> gwVoltageTransformers = list(new QueryWrapper<GwVoltageTransformer>());
         return Result.success(gwVoltageTransformers);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwVoltageTransformer gwVoltageTransformer = getById(id);
+        org.springframework.util.Assert.notNull(gwVoltageTransformer,"找不到该设备");
+        return Result.success(gwVoltageTransformer);
     }
 }

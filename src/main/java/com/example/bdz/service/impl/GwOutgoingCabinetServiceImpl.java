@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwOutgoingCabinetMapper;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.pojo.GwOutgoingCabinet;
 import com.example.bdz.service.GwOutgoingCabinetService;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,12 @@ public class GwOutgoingCabinetServiceImpl extends ServiceImpl<GwOutgoingCabinetM
     public Result getOcList(Long id) {
         List<GwOutgoingCabinet> gwOutgoingCabinets = list(new QueryWrapper<GwOutgoingCabinet>());
         return Result.success(gwOutgoingCabinets);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwOutgoingCabinet gwOutgoingCabinet = getById(id);
+        org.springframework.util.Assert.notNull(gwOutgoingCabinet,"找不到该设备");
+        return Result.success(gwOutgoingCabinet);
     }
 }

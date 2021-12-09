@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwStationPowerCabinetService extends IService<GwStationPowerCabinet> {
 
     Result getSpcList(Long id);
+
+    Result info(Long id);
 }

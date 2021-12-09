@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwConverterTransformerService extends IService<GwConverterTransformer> {
 
     Result getCtList(Long id);
+
+    Result info(Long id);
 }

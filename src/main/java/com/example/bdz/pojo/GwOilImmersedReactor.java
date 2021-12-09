@@ -157,5 +157,6 @@ public class GwOilImmersedReactor implements Serializable {
     @ApiModelProperty(value = "油箱和散热器压强")
     private Double tankAndRadiatorPressure;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

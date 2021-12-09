@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwStationPowerCabinetMapper;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.pojo.GwStationPowerCabinet;
 import com.example.bdz.service.GwStationPowerCabinetService;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,12 @@ public class GwStationPowerCabinetServiceImpl extends ServiceImpl<GwStationPower
     public Result getSpcList(Long id) {
         List<GwStationPowerCabinet> gwStationPowerCabinets = list(new QueryWrapper<GwStationPowerCabinet>());
         return Result.success(gwStationPowerCabinets);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwStationPowerCabinet gwStationPowerCabinet = getById(id);
+        org.springframework.util.Assert.notNull(gwStationPowerCabinet,"找不到该设备");
+        return Result.success(gwStationPowerCabinet);
     }
 }

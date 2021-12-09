@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwSmoothingReactorService extends IService<GwSmoothingReactor> {
 
     Result getSrList(Long id);
+
+    Result info(Long id);
 }

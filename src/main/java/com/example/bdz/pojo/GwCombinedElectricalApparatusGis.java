@@ -150,5 +150,6 @@ ratedCurrentIn;
     @ApiModelProperty(value = "检修周期")
     private String maintenanceCycle;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

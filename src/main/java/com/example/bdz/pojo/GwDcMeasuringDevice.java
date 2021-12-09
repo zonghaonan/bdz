@@ -46,5 +46,6 @@ public class GwDcMeasuringDevice implements Serializable {
     @ApiModelProperty(value = "实物ID")
     private String materialObjectId;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

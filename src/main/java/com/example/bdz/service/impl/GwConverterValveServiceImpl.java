@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwConverterValveMapper;
 import com.example.bdz.pojo.GwConverterValve;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwConverterValveService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwConverterValveServiceImpl extends ServiceImpl<GwConverterValveMap
     public Result getCvList(Long id) {
         List<GwConverterValve> gwConverterValves = list(new QueryWrapper<GwConverterValve>());
         return Result.success(gwConverterValves);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwConverterValve gwConverterValve = getById(id);
+        org.springframework.util.Assert.notNull(gwConverterValve,"找不到该设备");
+        return Result.success(gwConverterValve);
     }
 }

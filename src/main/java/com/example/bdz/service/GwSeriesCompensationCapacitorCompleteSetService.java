@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwSeriesCompensationCapacitorCompleteSetService extends IService<GwSeriesCompensationCapacitorCompleteSet> {
 
     Result getScccList(Long id);
+
+    Result info(Long id);
 }

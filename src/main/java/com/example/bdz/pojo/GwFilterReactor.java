@@ -46,5 +46,6 @@ public class GwFilterReactor implements Serializable {
     @ApiModelProperty(value = "调节参数")
     private Double tuneParameter;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

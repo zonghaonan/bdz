@@ -40,5 +40,6 @@ public class GwBypassSwitch implements Serializable {
     @ApiModelProperty(value = "断口数")
     private Double fractureNumber;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

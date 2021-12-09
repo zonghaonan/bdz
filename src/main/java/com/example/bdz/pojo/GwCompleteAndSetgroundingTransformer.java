@@ -46,5 +46,6 @@ public class GwCompleteAndSetgroundingTransformer implements Serializable {
     @ApiModelProperty(value = "防护等级")
     private String degreeOfProtection;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

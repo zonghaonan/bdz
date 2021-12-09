@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwBusEquipmentCabinetMapper;
 import com.example.bdz.pojo.GwBusEquipmentCabinet;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwBusEquipmentCabinetService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,11 @@ public class GwBusEquipmentCabinetServiceImpl extends ServiceImpl<GwBusEquipment
     public Result getBecList(Long id) {
         List<GwBusEquipmentCabinet> gwBusEquipmentCabinets = list(new QueryWrapper<GwBusEquipmentCabinet>());
         return Result.success(gwBusEquipmentCabinets);
+    }
+    @Override
+    public Result info(Long id) {
+        GwBusEquipmentCabinet gwBusEquipmentCabinet = getById(id);
+        org.springframework.util.Assert.notNull(gwBusEquipmentCabinet,"找不到该设备");
+        return Result.success(gwBusEquipmentCabinet);
     }
 }

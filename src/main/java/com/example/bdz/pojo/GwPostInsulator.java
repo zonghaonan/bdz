@@ -106,5 +106,6 @@ public class GwPostInsulator implements Serializable {
     @ApiModelProperty(value = "上、下附件安装孔角度偏移最大偏差（顺时针或逆时针方向）")
     private Double maximumDeviationOfAngleOffset;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

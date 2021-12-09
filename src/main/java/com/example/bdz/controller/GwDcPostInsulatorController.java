@@ -26,7 +26,7 @@ public class GwDcPostInsulatorController extends BaseController{
     @Autowired
     GwDcPostInsulatorService gwDcPostInsulatorService;
 
-    @ApiOperation("根据id获取油浸式变压器接口")
+    @ApiOperation("根据id获取直流支柱绝缘子列表接口")
     @PreAuthorize("hasAuthority('gw:scene')")
     @GetMapping("/info/{Id}")
     public Result info(@PathVariable("Id") Long id){

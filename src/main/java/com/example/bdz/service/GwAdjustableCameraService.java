@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwAdjustableCameraService extends IService<GwAdjustableCamera> {
 
     Result getAcList(Long id);
+
+    Result info(Long id);
 }

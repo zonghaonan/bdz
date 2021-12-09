@@ -115,5 +115,6 @@ public class GwFrameCapacitor implements Serializable {
     @ApiModelProperty(value = "每相电容器并联台数")
     private Double numberOfParallelCapacitorsPerPhase;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

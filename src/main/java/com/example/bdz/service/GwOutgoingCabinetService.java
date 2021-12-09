@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwOutgoingCabinetService extends IService<GwOutgoingCabinet> {
 
     Result getOcList(Long id);
+
+    Result info(Long id);
 }

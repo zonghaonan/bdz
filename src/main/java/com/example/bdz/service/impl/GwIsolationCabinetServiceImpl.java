@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwIsolationCabinetMapper;
 import com.example.bdz.pojo.GwIsolationCabinet;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwIsolationCabinetService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwIsolationCabinetServiceImpl extends ServiceImpl<GwIsolationCabine
     public Result getIscList(Long id) {
         List<GwIsolationCabinet> gwIsolationCabinets = list(new QueryWrapper<GwIsolationCabinet>());
         return Result.success(gwIsolationCabinets);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwIsolationCabinet gwIsolationCabinet = getById(id);
+        org.springframework.util.Assert.notNull(gwIsolationCabinet,"找不到该设备");
+        return Result.success(gwIsolationCabinet);
     }
 }

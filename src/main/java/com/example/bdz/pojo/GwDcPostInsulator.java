@@ -82,5 +82,6 @@ public class GwDcPostInsulator implements Serializable {
     @ApiModelProperty(value = "支柱绝缘子外形尺寸")
     private Double overallDimension;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwActiveElectronicCurrentTransformerMapper;
 import com.example.bdz.pojo.GwActiveElectronicCurrentTransformer;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwActiveElectronicCurrentTransformerService;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +27,12 @@ public class GwActiveElectronicCurrentTransformerServiceImpl extends ServiceImpl
         List<GwActiveElectronicCurrentTransformer> gwActiveElectronicCurrentTransformers = list(new QueryWrapper<GwActiveElectronicCurrentTransformer>());
         return Result.success(gwActiveElectronicCurrentTransformers);
     }
+
+    @Override
+    public Result info(Long id) {
+        GwActiveElectronicCurrentTransformer gwActiveElectronicCurrentTransformer = getById(id);
+        org.springframework.util.Assert.notNull(gwActiveElectronicCurrentTransformer,"找不到该设备");
+        return Result.success(gwActiveElectronicCurrentTransformer);
+    }
+
 }

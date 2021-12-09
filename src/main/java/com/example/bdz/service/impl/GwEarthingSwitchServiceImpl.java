@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.bdz.common.lang.Result;
 import com.example.bdz.mapper.GwEarthingSwitchMapper;
 import com.example.bdz.pojo.GwEarthingSwitch;
+import com.example.bdz.pojo.GwOilfilledTransformer;
 import com.example.bdz.service.GwEarthingSwitchService;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class GwEarthingSwitchServiceImpl extends ServiceImpl<GwEarthingSwitchMap
     public Result getEsList(Long id) {
         List<GwEarthingSwitch> gwEarthingSwitches = list(new QueryWrapper<GwEarthingSwitch>());
         return Result.success(gwEarthingSwitches);
+    }
+
+    @Override
+    public Result info(Long id) {
+        GwEarthingSwitch gwEarthingSwitch = getById(id);
+        org.springframework.util.Assert.notNull(gwEarthingSwitch,"找不到该设备");
+        return Result.success(gwEarthingSwitch);
     }
 }

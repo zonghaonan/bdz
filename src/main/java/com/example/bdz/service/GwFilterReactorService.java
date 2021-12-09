@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface GwFilterReactorService extends IService<GwFilterReactor> {
 
     Result getFrList(Long id);
+
+    Result info(Long id);
 }

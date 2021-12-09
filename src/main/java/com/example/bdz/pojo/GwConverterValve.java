@@ -64,5 +64,6 @@ public class GwConverterValve implements Serializable {
     @ApiModelProperty(value = "最小值")
     private Double minimumValue;
 
-
+    @ApiModelProperty(value = "使用状况")
+    private int status;
 }
