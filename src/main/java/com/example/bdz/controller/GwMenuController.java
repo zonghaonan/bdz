@@ -37,21 +37,21 @@ public class GwMenuController extends BaseController {
     @Autowired
     GwMenuService gwMenuService;
     @ApiOperation("获取当前用户的权限列表接口")
-    @GetMapping("/nav")
-    public Result nav(Principal principal){
-        return gwMenuService.nav(principal);
+    @GetMapping("/menus")
+    public Result menus(Principal principal){
+        return gwMenuService.menus(principal);
     }
     @ApiOperation("根据id获取权限信息接口")
     @GetMapping("/info/{id}")
-    @PreAuthorize("hasAuthority('gw:menu:list')")
+    @PreAuthorize("hasAuthority('gw:menu')")
     public Result info(@PathVariable("id") Integer id){
         return gwMenuService.info(id);
     }
     @ApiOperation("获取权限列表接口")
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('gw:menu:list')")
-    public Result list(){
-        return gwMenuService.getMenuTree();
+    @PreAuthorize("hasAuthority('gw:menu')")
+    public Result list(String name){
+        return gwMenuService.getMenuList(name);
     }
 
 //    @ApiOperation("添加权限接口")

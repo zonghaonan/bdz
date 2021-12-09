@@ -39,24 +39,17 @@ public class GwMenu implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "父菜单id")
-    @NotNull(message = "父菜单不能为空")
-    private Integer parentId;
-
-    @ApiModelProperty(value = "菜单名称")
-    @NotBlank(message = "菜单名称不能为空")
+    @ApiModelProperty(value = "权限名称")
+    @NotBlank(message = "权限名称不能为空")
     private String name;
 
-    @ApiModelProperty(value = "菜单路径")
+    @ApiModelProperty(value = "权限路径")
     private String path;
 
     @ApiModelProperty(value = "授权(多个用逗号分隔，如：gw:user:list,gw:user:create)")
-    @NotBlank(message = "菜单授权码不能为空")
+    @NotBlank(message = "权限授权码不能为空")
     private String perms;
 
-    @ApiModelProperty(value = "菜单类型（0：一级目录  1：二级目录  2：操作权限）")
-    @NotNull(message = "菜单类型不能为空")
-    private Integer type;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

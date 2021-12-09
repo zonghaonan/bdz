@@ -18,9 +18,9 @@ import java.util.List;
  */
 public interface GwMenuService extends IService<GwMenu> {
 
-    Result nav(Principal principal);
+    Result menus(Principal principal);
 
     Result info(Integer id);
 
-    Result getMenuTree();
+    Result getMenuList(String name);
 }

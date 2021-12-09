@@ -25,42 +25,42 @@ public class GwRoleController extends BaseController {
     @Autowired
     GwRoleService gwRoleService;
     @ApiOperation("根据id获取角色信息接口")
-    @PreAuthorize("hasAuthority('gw:role:list')")
+    @PreAuthorize("hasAuthority('gw:role')")
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
         return gwRoleService.info(id);
     }
 
     @ApiOperation("获取角色列表接口")
-    @PreAuthorize("hasAuthority('gw:role:list')")
+    @PreAuthorize("hasAuthority('gw:role')")
     @GetMapping("/list")
     public Result list(String name){
         return gwRoleService.getRoleList(name);
     }
 
     @ApiOperation("添加角色接口")
-    @PreAuthorize("hasAuthority('gw:role:save')")
+    @PreAuthorize("hasAuthority('gw:role')")
     @PostMapping("/save")
     public Result save(@Validated @RequestBody GwRole gwRole){
         return gwRoleService.addRole(gwRole);
     }
 
     @ApiOperation("更新角色接口")
-    @PreAuthorize("hasAuthority('gw:role:update')")
+    @PreAuthorize("hasAuthority('gw:role')")
     @PostMapping("/update/{id}")
     public Result update(@PathVariable("id") Integer id,@Validated @RequestBody GwRole gwRole){
         return gwRoleService.updateRole(id,gwRole);
     }
 
     @ApiOperation("删除角色接口")
-    @PreAuthorize("hasAuthority('gw:role:delete')")
+    @PreAuthorize("hasAuthority('gw:role')")
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Integer id){
         return gwRoleService.deleteRole(id);
     }
 
     @ApiOperation("分配权限接口")
-    @PreAuthorize("hasAuthority('gw:role:perm')")
+    @PreAuthorize("hasAuthority('gw:role')")
     @PostMapping("/perm/{roleId}")
     public Result perm(@PathVariable("roleId") Integer roleId,@RequestBody Integer[] menuIds){
         return gwRoleService.perm(roleId,menuIds);

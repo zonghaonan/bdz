@@ -33,7 +33,7 @@ public class GwUserController extends BaseController {
     @Autowired
     GwUserService gwUserService;
     @GetMapping("/userInfo")  //查询当前用户
-    @PreAuthorize("hasAuthority('gw:user:list')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @ApiOperation("查询当前用户接口")
     public Result getUserInfo(Principal principal) {
         GwUser userInfo = gwUserService.getByUsername(principal.getName());
@@ -45,44 +45,44 @@ public class GwUserController extends BaseController {
                 map());
     }
     @GetMapping("/info/{userId}")
-    @PreAuthorize("hasAuthority('gw:user:list')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @ApiOperation("根据用户id查询用户信息接口")
     public Result info(@PathVariable("userId")Long userId) {
         return gwUserService.info(userId);
     }
     @GetMapping("/list")  //查询所有用户
-    @PreAuthorize("hasAuthority('gw:user:list')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @ApiOperation("查询用户列表接口")
     public Result list(String username) {
         return gwUserService.getUserList(username);
     }
     @ApiOperation("添加用户接口")
-    @PreAuthorize("hasAuthority('gw:user:save')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @PostMapping("/save")
     public Result save(@Validated @RequestBody GwUser gwUser){
         return gwUserService.addUser(gwUser);
     }
 
     @ApiOperation("更新用户接口")
-    @PreAuthorize("hasAuthority('gw:user:update')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @PostMapping("/update/{userId}")
     public Result update(@PathVariable("userId") Long userId,@Validated @RequestBody GwUser gwUser){
         return gwUserService.updateUser(userId,gwUser);
     }
     @ApiOperation("删除用户接口")
-    @PreAuthorize("hasAuthority('gw:user:delete')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @PostMapping("/delete/{userId}")
     public Result delete(@PathVariable("userId") Long userId){
         return gwUserService.deleteUser(userId);
     }
     @ApiOperation("分配角色接口")
-    @PreAuthorize("hasAuthority('gw:user:perm')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @PostMapping("/perm/{userId}/{roleId}")
     public Result perm(@PathVariable("userId") Long userId,@PathVariable("roleId") Integer roleId){
         return gwUserService.perm(userId,roleId);
     }
     @ApiOperation("重置密码接口")
-    @PreAuthorize("hasAuthority('gw:user:repass')")
+    @PreAuthorize("hasAuthority('gw:user')")
     @PostMapping("/repass/{userId}")
     public Result repass(@PathVariable("userId") Long userId){
         return gwUserService.repass(userId);

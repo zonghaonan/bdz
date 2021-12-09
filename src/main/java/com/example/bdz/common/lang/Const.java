@@ -10,5 +10,5 @@ public class Const {
     public final static int STATUS_ON=1;
     public final static long EXPIRE=604800;
     public final static int STATUS_OFF=2;
-    public final static String DEFAULT_PASSWORD="111111";
+    public final static String DEFAULT_PASSWORD="123456";
 }
