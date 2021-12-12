@@ -59,7 +59,5 @@ public class GwMenu implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
-    @TableField(exist = false)
-    private List<GwMenu> children=new ArrayList<>();
 
 }

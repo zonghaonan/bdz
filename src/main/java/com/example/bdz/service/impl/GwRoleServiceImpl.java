@@ -56,6 +56,11 @@ public class GwRoleServiceImpl extends ServiceImpl<GwRoleMapper, GwRole> impleme
     @Override
     public Result getRoleList(String name) {
         List<GwRole> gwRoles=list(new QueryWrapper<GwRole>().like(StrUtil.isNotBlank(name),"name",name));
+        for (GwRole gwRole : gwRoles) {
+            List<GwRoleMenu> gwRoleMenus=gwRoleMenuService.list(new QueryWrapper<GwRoleMenu>().eq("role_id",gwRole.getId()));
+            List<Integer> menuIds = gwRoleMenus.stream().map(p -> p.getMenuId()).collect(Collectors.toList());
+            gwRole.setMenuIds(menuIds);
+        }
         return Result.success(gwRoles);
     }
 
