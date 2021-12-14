@@ -36,6 +36,7 @@ public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
         //System.out.println(authentication);
         String jwt=httpServletRequest.getHeader(jwtUtils.getHeader());
         Claims claim=jwtUtils.getClaimByToken(jwt);
+
         //清除缓存
         redisUtil.del("jwt:"+claim.get("userId"));
         redisUtil.del("GrantedAuthority:"+claim.get("userId"));
@@ -45,6 +46,7 @@ public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
         httpServletResponse.setContentType("application/json;charset=UTF-8");
         ServletOutputStream outputStream = httpServletResponse.getOutputStream();
         httpServletResponse.setHeader(jwtUtils.getHeader(),"");
+        System.out.println("成功退出登录");
         Result result = Result.success(null);
         outputStream.write(JSONUtil.toJsonStr(result).getBytes("UTF-8"));
         outputStream.flush();

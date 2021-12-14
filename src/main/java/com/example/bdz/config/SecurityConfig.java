@@ -62,9 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         //登录配置
-        http.formLogin().successHandler(successHandler).failureHandler(failureHandler);
+        http.formLogin().loginProcessingUrl("/gw/login").successHandler(successHandler).failureHandler(failureHandler);
         //退出配置
-        http.logout().logoutSuccessHandler(logoutSuccessHandler);
+        http.logout().logoutUrl("/gw/loginout").logoutSuccessHandler(logoutSuccessHandler);
         //禁用session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //配置拦截规则
