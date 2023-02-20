@@ -43,7 +43,7 @@ public class GenerateCode {
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         //修改成了本人的root密码
-        dsc.setPassword("551551");
+        dsc.setPassword("189216");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
         //3、包的配置
@@ -57,7 +57,7 @@ public class GenerateCode {
         mpg.setPackageInfo(pc);
         //4、策略配置
         StrategyConfig sc = new StrategyConfig();
-        sc.setInclude("gw_svc_reactive_power_compensation_device");//设置要映射的表名
+        sc.setInclude("gw_distribution_box");//设置要映射的表名
         sc.setNaming(NamingStrategy.underline_to_camel);
         sc.setColumnNaming(NamingStrategy.underline_to_camel);
         sc.setEntityLombokModel(true);//自动lombok

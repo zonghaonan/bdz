@@ -2,15 +2,15 @@
 spring:
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://10.166.33.68:3306/bdz?useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    password: 189216
+    url: jdbc:mysql://localhost:3306/bdz?useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
 #  security:
 #    user:
 #      name: user
 #      password: 123456
   redis:
-    host: 10.166.33.68
+    host: 192.168.163.129
 
 
 mybatis-plus:

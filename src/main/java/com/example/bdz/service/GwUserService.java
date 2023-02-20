@@ -42,4 +42,6 @@ public interface GwUserService extends IService<GwUser> {
     Result repass(Long userId);
 
     Result updatePwd(PasswordDto passwordDto, Principal principal);
+
+    Result addUser2(GwUser gwUser);
 }

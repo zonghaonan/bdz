@@ -63,6 +63,11 @@ public class GwUserController extends BaseController {
         return gwUserService.addUser(gwUser);
     }
 
+    @ApiOperation("添加用户接口2")
+    @PostMapping("/save1")
+    public Result save1(@Validated @RequestBody GwUser gwUser){
+        return gwUserService.addUser2(gwUser);
+    }
     @ApiOperation("更新用户接口")
     @PreAuthorize("hasAuthority('gw:user')")
     @PostMapping("/update/{userId}")

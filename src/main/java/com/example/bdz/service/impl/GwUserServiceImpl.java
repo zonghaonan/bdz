@@ -127,7 +127,7 @@ public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> impleme
         gwUser.setStatus(Const.STATUS_ON);
         String password=passwordEncoder.encode(Const.DEFAULT_PASSWORD);
         gwUser.setPassword(password);
-        save(gwUser);
+        boolean re = save(gwUser);
         //默认分配普通用户角色
         GwUserRole userRole=new GwUserRole();
         userRole.setUserId(gwUser.getUserId());
@@ -210,6 +210,18 @@ public class GwUserServiceImpl extends ServiceImpl<GwUserMapper, GwUser> impleme
         gwUser.setPassword(passwordEncoder.encode(passwordDto.getPwd()));
         updateById(gwUser);
         return Result.success(null);
+    }
+
+    @Override
+    public Result addUser2(GwUser gwUser) {
+        try {
+            addUser(gwUser);
+            System.out.println("添加用户成功");
+        }catch (Exception e){
+            System.out.println("添加用户异常");
+            System.out.println(e);
+        }
+        return null;
     }
 
     @Override
